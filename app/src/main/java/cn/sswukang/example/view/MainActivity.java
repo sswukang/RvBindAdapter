@@ -47,6 +47,8 @@ public class MainActivity extends BaseActivity<MainActivityBinding, MainViewMode
         initLeftMenuPop();
         initRightMenuPop();
         // 初始化Fragment
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.main_container, new MainSingleFragment()).commitAllowingStateLoss();
     }
 
     private void initLeftMenuPop() {
@@ -67,16 +69,16 @@ public class MainActivity extends BaseActivity<MainActivityBinding, MainViewMode
             Log.e("leftMenuPop", "viewId:" + view.getId() + " pos:" + position + " id:" + id);
             switch (position) {
                 case 0:
-                    Snackbar.make(getDataBinding().mainContainer, "single", 1000).show();
+                    Snackbar.make(getDataBinding().mainContainer, "waiting...", Snackbar.LENGTH_SHORT).show();
                     break;
                 case 1:
-                    Snackbar.make(getDataBinding().mainContainer, "multi", 1000).show();
+                    Snackbar.make(getDataBinding().mainContainer, "waiting...", Snackbar.LENGTH_SHORT).show();
                     break;
                 case 2:
-                    Snackbar.make(getDataBinding().mainContainer, "sticky", 1000).show();
+                    Snackbar.make(getDataBinding().mainContainer, "waiting...", Snackbar.LENGTH_SHORT).show();
                     break;
                 case 3:
-                    Snackbar.make(getDataBinding().mainContainer, "sticky_side", 1000).show();
+                    Snackbar.make(getDataBinding().mainContainer, "waiting...", Snackbar.LENGTH_SHORT).show();
                     break;
             }
             leftMenuPop.dismiss();
@@ -100,13 +102,13 @@ public class MainActivity extends BaseActivity<MainActivityBinding, MainViewMode
             Log.e("rightMenuPop", "viewId:" + view.getId() + " pos:" + position + " id:" + id);
             switch (position) {
                 case 0:
-                    Snackbar.make(getDataBinding().mainContainer, "asc", 1000).show();
+                    Snackbar.make(getDataBinding().mainContainer, "waiting...", Snackbar.LENGTH_SHORT).show();
                     break;
                 case 1:
-                    Snackbar.make(getDataBinding().mainContainer, "desc", 1000).show();
+                    Snackbar.make(getDataBinding().mainContainer, "waiting...", Snackbar.LENGTH_SHORT).show();
                     break;
                 case 2:
-                    Snackbar.make(getDataBinding().mainContainer, "shuffle", 1000).show();
+                    Snackbar.make(getDataBinding().mainContainer, "waiting...", Snackbar.LENGTH_SHORT).show();
                     break;
             }
             rightMenuPop.dismiss();
