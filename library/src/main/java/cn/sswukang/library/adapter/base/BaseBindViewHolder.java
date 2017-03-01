@@ -88,42 +88,6 @@ public class BaseBindViewHolder<B extends ViewDataBinding> extends RecyclerView.
     }
 
     /**
-     * 设置TextViewImage，方向个数必须和res个数相同
-     *
-     * @param tv      {@link TextView}
-     * @param gravity {@link Gravity#START}|{@link Gravity#TOP}|{@link Gravity#END}|{@link Gravity#BOTTOM}
-     * @param resId   资源ID
-     */
-    public void setTextImage(TextView tv, int gravity, @DrawableRes int... resId) {
-        int index = 0;
-
-        // 初始化Drawable
-        int length = resId.length;
-        Drawable[] initDrawables = new Drawable[length];
-        for (int i = 0; i < length; i++) {
-            Drawable drawable = ContextCompat.getDrawable(getContext(), resId[i]);
-            drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
-            initDrawables[i] = drawable;
-        }
-
-        // 设置Drawable
-        Drawable[] setDrawables = new Drawable[4];
-        if ((gravity & Gravity.START) == Gravity.START) {
-            setDrawables[0] = initDrawables[index++];
-        }
-        if ((gravity & Gravity.TOP) == Gravity.TOP) {
-            setDrawables[1] = initDrawables[index++];
-        }
-        if ((gravity & Gravity.END) == Gravity.END) {
-            setDrawables[2] = initDrawables[index++];
-        }
-        if ((gravity & Gravity.BOTTOM) == Gravity.BOTTOM) {
-            setDrawables[3] = initDrawables[index];
-        }
-        tv.setCompoundDrawables(setDrawables[0], setDrawables[1], setDrawables[2], setDrawables[3]);
-    }
-
-    /**
      * RecyclerView Item 添加监听接口
      */
     protected interface RecyclerClickListener {

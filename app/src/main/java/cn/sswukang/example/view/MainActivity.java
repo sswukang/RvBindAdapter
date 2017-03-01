@@ -10,8 +10,11 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.Arrays;
+
 import cn.sswukang.example.R;
 import cn.sswukang.example.base.BaseActivity;
+import cn.sswukang.example.base.BaseFragmentAdapter;
 import cn.sswukang.example.databinding.MainActivityBinding;
 import cn.sswukang.example.viewmodel.MainViewModel;
 
@@ -46,9 +49,9 @@ public class MainActivity extends BaseActivity<MainActivityBinding, MainViewMode
         // 初始化PopupWindow
         initLeftMenuPop();
         initRightMenuPop();
-        // 初始化Fragment
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.main_container, new MainSingleFragment()).commitAllowingStateLoss();
+        // 初始化ViewPager
+        getDataBinding().setPagerAdapter(new BaseFragmentAdapter<>(getSupportFragmentManager(),
+                Arrays.asList(new MainSingleFragment(), new MainMultiFragment())));
     }
 
     private void initLeftMenuPop() {
@@ -69,16 +72,16 @@ public class MainActivity extends BaseActivity<MainActivityBinding, MainViewMode
             Log.e("leftMenuPop", "viewId:" + view.getId() + " pos:" + position + " id:" + id);
             switch (position) {
                 case 0:
-                    Snackbar.make(getDataBinding().mainContainer, "waiting...", Snackbar.LENGTH_SHORT).show();
+                    getDataBinding().mainViewPager.setCurrentItem(position, false);
                     break;
                 case 1:
-                    Snackbar.make(getDataBinding().mainContainer, "waiting...", Snackbar.LENGTH_SHORT).show();
+                    getDataBinding().mainViewPager.setCurrentItem(position, false);
                     break;
                 case 2:
-                    Snackbar.make(getDataBinding().mainContainer, "waiting...", Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(getDataBinding().topToolbar, "waiting...", Snackbar.LENGTH_SHORT).show();
                     break;
                 case 3:
-                    Snackbar.make(getDataBinding().mainContainer, "waiting...", Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(getDataBinding().topToolbar, "waiting...", Snackbar.LENGTH_SHORT).show();
                     break;
             }
             leftMenuPop.dismiss();
@@ -102,13 +105,13 @@ public class MainActivity extends BaseActivity<MainActivityBinding, MainViewMode
             Log.e("rightMenuPop", "viewId:" + view.getId() + " pos:" + position + " id:" + id);
             switch (position) {
                 case 0:
-                    Snackbar.make(getDataBinding().mainContainer, "waiting...", Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(getDataBinding().topToolbar, "waiting...", Snackbar.LENGTH_SHORT).show();
                     break;
                 case 1:
-                    Snackbar.make(getDataBinding().mainContainer, "waiting...", Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(getDataBinding().topToolbar, "waiting...", Snackbar.LENGTH_SHORT).show();
                     break;
                 case 2:
-                    Snackbar.make(getDataBinding().mainContainer, "waiting...", Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(getDataBinding().topToolbar, "waiting...", Snackbar.LENGTH_SHORT).show();
                     break;
             }
             rightMenuPop.dismiss();

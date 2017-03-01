@@ -59,6 +59,13 @@ public class CountryManager {
     }
 
     /**
+     * @return 列表长度
+     */
+    public int getListSize() {
+        return countryList.size();
+    }
+
+    /**
      * @return 按国家id正序
      */
     public Comparator<Country> comparatorIdAcs() {

@@ -1,6 +1,5 @@
 package cn.sswukang.library.adapter.multi;
 
-import android.databinding.BaseObservable;
 import android.databinding.ViewDataBinding;
 import android.support.annotation.LayoutRes;
 import android.view.View;
@@ -17,8 +16,8 @@ import cn.sswukang.library.adapter.base.BaseBindViewHolder;
  * @author sswukang on 2017/2/23 18:35
  * @version 1.0
  */
-public abstract class MultiBindAdapter<T extends BaseObservable, B extends ViewDataBinding>
-        extends BaseBindAdapter<T, B, BaseBindViewHolder<B>> {
+public abstract class MultiBindAdapter<T>
+        extends BaseBindAdapter<T, ViewDataBinding, BaseBindViewHolder<ViewDataBinding>> {
 
     /**
      * @param data 数据
@@ -40,8 +39,8 @@ public abstract class MultiBindAdapter<T extends BaseObservable, B extends ViewD
     }
 
     @Override
-    public final void convert(T t, B binding, BaseBindViewHolder<B> holder) {
-        convert(t, binding, holder, holder.getLayoutId());
+    public final void convert(T t, ViewDataBinding binding, BaseBindViewHolder<ViewDataBinding> holder) {
+        convert(t, binding, holder.getLayoutId());
     }
 
     @Override
@@ -67,11 +66,10 @@ public abstract class MultiBindAdapter<T extends BaseObservable, B extends ViewD
      * 实现该抽象方法，完成数据的填充。
      *
      * @param t        每个 position 对应的封装
-     * @param binding  {@link B}
-     * @param holder   {@link BaseBindViewHolder<B>}
+     * @param binding  {@link ViewDataBinding}
      * @param layoutId 布局id (用于区别不同item)
      */
-    public abstract void convert(T t, B binding, BaseBindViewHolder<B> holder, @LayoutRes int layoutId);
+    public abstract void convert(T t, ViewDataBinding binding, @LayoutRes int layoutId);
 
     /**
      * item的单击事件
@@ -94,5 +92,17 @@ public abstract class MultiBindAdapter<T extends BaseObservable, B extends ViewD
      */
     public boolean onItemLongClick(View itemView, T t, @LayoutRes int layoutId) {
         return false;
+    }
+
+    /**
+     * 得到每个item的ViewDataBinding(注：一定要是xml对应的ViewDataBinding)
+     *
+     * @param binding {@link ViewDataBinding}
+     * @param <B>     {@link B}
+     * @return {@link B};
+     */
+    @SuppressWarnings("unchecked")
+    protected <B extends ViewDataBinding> B getItemBinding(ViewDataBinding binding) {
+        return (B) binding;
     }
 }

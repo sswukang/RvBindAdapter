@@ -1,11 +1,11 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data class="MainSingleFragmentBinding">
+    <data class="MainMultiFragmentBinding">
 
         <variable
-            name="mainSingle"
-            type="cn.sswukang.example.viewmodel.MainSingleViewModel" />
+            name="mainMulti"
+            type="cn.sswukang.example.viewmodel.MainMultiViewModel" />
 
         <variable
             name="adapter"
@@ -21,7 +21,7 @@
         android:layout_height="match_parent">
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/single_recycler"
+            android:id="@+id/multi_recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:adapter="@{adapter}"

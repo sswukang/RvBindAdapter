@@ -1,6 +1,6 @@
 package cn.sswukang.library.adapter.base;
 
-import android.databinding.BaseObservable;
+import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.support.annotation.LayoutRes;
@@ -17,9 +17,10 @@ import java.util.List;
  * @author sswukang on 2017/2/23 18:13
  * @version 1.0
  */
-public abstract class BaseBindAdapter<T extends BaseObservable, B extends ViewDataBinding, H extends BaseBindViewHolder<B>>
+public abstract class BaseBindAdapter<T, B extends ViewDataBinding, H extends BaseBindViewHolder<B>>
         extends RecyclerView.Adapter<H> implements BaseBindViewHolder.RecyclerClickListener {
 
+    private Context context;
     @LayoutRes
     private int layoutId;
     private List<T> data;
@@ -98,13 +99,14 @@ public abstract class BaseBindAdapter<T extends BaseObservable, B extends ViewDa
     // 绑定hold
     @Override
     public void onBindViewHolder(H holder, int position) {
+        context = holder.getContext();
         B binding = holder.getBinding();
         convert(getItem(position), binding, holder);
         binding.executePendingBindings();
     }
 
     /**
-     * 实现该抽象方法，完成数据的填充。
+     * 实现该抽象方法，完成数据的绑定。
      *
      * @param t       每个 position 对应的封装
      * @param binding {@link B}
@@ -134,5 +136,14 @@ public abstract class BaseBindAdapter<T extends BaseObservable, B extends ViewDa
     @Override
     public boolean onItemLongClick(View itemView, int position, @LayoutRes int layoutId) {
         return false;
+    }
+
+    /**
+     * 得到ItemView依赖的Context
+     *
+     * @return {@link View#getContext()}
+     */
+    public Context getContext() {
+        return context;
     }
 }

@@ -9,5 +9,5 @@ import cn.sswukang.example.databinding.MainSingleFragmentBinding;
  * @author sswukang on 2017/2/22 17:08
  * @version 1.0
  */
-public class MainSingelViewModel extends BaseViewModelFragment<MainSingleFragmentBinding> {
+public class MainSingleViewModel extends BaseViewModelFragment<MainSingleFragmentBinding> {
 }

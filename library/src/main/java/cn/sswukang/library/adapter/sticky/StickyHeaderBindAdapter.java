@@ -1,6 +1,5 @@
 package cn.sswukang.library.adapter.sticky;
 
-import android.databinding.BaseObservable;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.support.annotation.LayoutRes;
@@ -20,7 +19,7 @@ import cn.sswukang.library.lib.sticky_header.sticky.StickyRecyclerHeadersAdapter
  * @author sswukang on 2017/2/23 18:43
  * @version 1.0
  */
-public abstract class StickyHeaderBindAdapter<T extends BaseObservable, B extends ViewDataBinding>
+public abstract class StickyHeaderBindAdapter<T, B extends ViewDataBinding>
         extends SingleBindAdapter<T, B> implements StickyRecyclerHeadersAdapter<BaseBindViewHolder<B>> {
 
     // sticky header res id;
@@ -56,7 +55,7 @@ public abstract class StickyHeaderBindAdapter<T extends BaseObservable, B extend
     @Override
     public final void onBindHeaderViewHolder(BaseBindViewHolder<B> holder, int position) {
         B binding = holder.getBinding();
-        convertHeader(getItem(position), binding, holder, position);
+        convertHeader(getItem(position), binding, position);
         binding.executePendingBindings();
     }
 
@@ -85,8 +84,7 @@ public abstract class StickyHeaderBindAdapter<T extends BaseObservable, B extend
      *
      * @param t        header 对象数据封装
      * @param binding  {@link B}
-     * @param holder   {@link BaseBindViewHolder<B>}
      * @param position header 条目下标
      */
-    public abstract void convertHeader(T t, B binding, BaseBindViewHolder<B> holder, int position);
+    public abstract void convertHeader(T t, B binding, int position);
 }

@@ -1,6 +1,5 @@
 package cn.sswukang.library.adapter.itemtouch;
 
-import android.databinding.BaseObservable;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.graphics.Color;
@@ -21,7 +20,7 @@ import cn.sswukang.library.adapter.base.BaseBindAdapter;
  * @author sswukang on 2017/2/24 14:16
  * @version 1.0
  */
-public abstract class ItemTouchBindAdapter<T extends BaseObservable, B extends ViewDataBinding>
+public abstract class ItemTouchBindAdapter<T, B extends ViewDataBinding>
         extends BaseBindAdapter<T, B, ItemTouchBindViewHolder<B>>
         implements ItemTouchCallBack.OnMoveSwipeListener, ItemTouchBindViewHolder.ItemViewStateChangeListener {
     /**
@@ -38,6 +37,11 @@ public abstract class ItemTouchBindAdapter<T extends BaseObservable, B extends V
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         B binding = DataBindingUtil.inflate(inflater, viewType, parent, false);
         return ItemTouchBindViewHolder.get(binding, viewType, this, this);
+    }
+
+    @Override
+    public final void convert(T t, B binding, ItemTouchBindViewHolder<B> holder) {
+        convert(t, binding);
     }
 
     @Override
@@ -66,6 +70,14 @@ public abstract class ItemTouchBindAdapter<T extends BaseObservable, B extends V
         //删除列表中对应位置
         notifyItemRemoved(position);
     }
+
+    /**
+     * 实现该抽象方法，完成数据的绑定。
+     *
+     * @param t       每个 position 对应的封装
+     * @param binding {@link B}
+     */
+    public abstract void convert(T t, B binding);
 
     /**
      * item的单击事件

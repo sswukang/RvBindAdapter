@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data class="MainActivityBinding">
 
@@ -8,10 +9,13 @@
         <variable
             name="main"
             type="cn.sswukang.example.viewmodel.MainViewModel" />
+
+        <variable
+            name="pagerAdapter"
+            type="android.support.v4.app.FragmentPagerAdapter" />
     </data>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -26,9 +30,10 @@
             app:theme="@style/AppTheme"
             app:title='@{TextUtils.isEmpty(main.nameCn) ? @string/none : main.nameCn}' />
 
-        <FrameLayout
-            android:id="@+id/main_container"
+        <cn.sswukang.example.myview.NoScrollViewPager
+            android:id="@+id/main_view_pager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            app:adapter="@{pagerAdapter}" />
     </LinearLayout>
 </layout>
