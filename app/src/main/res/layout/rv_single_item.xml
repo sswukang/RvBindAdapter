@@ -14,12 +14,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:background="@{country.countryId}"
+        android:background="@{BindingUtils.getConversion(country.countryId)}"
         android:gravity="center"
         android:padding="15dp">
 
         <TextView
-            android:id="@+id/single_item_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -27,7 +26,6 @@
             android:textColor="@android:color/white" />
 
         <TextView
-            android:id="@+id/single_item_code"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{BindingUtils.getShowCode(country.countryCode)}"

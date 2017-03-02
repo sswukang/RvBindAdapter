@@ -17,6 +17,8 @@ import cn.sswukang.library.adapter.base.BaseBindAdapter;
 /**
  * ItemTouch Adapter Adapter (DataBinding模式)
  *
+ * @param <T> 数据类型
+ * @param <B> 内容布局绑定类
  * @author sswukang on 2017/2/24 14:16
  * @version 1.0
  */

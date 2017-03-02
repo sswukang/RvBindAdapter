@@ -11,8 +11,12 @@
             type="cn.sswukang.example.viewmodel.MainViewModel" />
 
         <variable
-            name="pagerAdapter"
+            name="adapter"
             type="android.support.v4.app.FragmentPagerAdapter" />
+
+        <variable
+            name="currentItem"
+            type="int" />
     </data>
 
     <LinearLayout
@@ -34,6 +38,7 @@
             android:id="@+id/main_view_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:adapter="@{pagerAdapter}" />
+            app:adapter="@{adapter}"
+            app:currentItem="@{currentItem}" />
     </LinearLayout>
 </layout>

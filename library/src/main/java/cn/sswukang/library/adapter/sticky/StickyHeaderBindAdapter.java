@@ -16,11 +16,14 @@ import cn.sswukang.library.lib.sticky_header.sticky.StickyRecyclerHeadersAdapter
 /**
  * 粘性头部适配器。(DataBinding模式)
  *
+ * @param <T>  数据类型
+ * @param <SB> 粘性头部布局绑定类
+ * @param <B>  内容布局绑定类
  * @author sswukang on 2017/2/23 18:43
  * @version 1.0
  */
-public abstract class StickyHeaderBindAdapter<T, B extends ViewDataBinding>
-        extends SingleBindAdapter<T, B> implements StickyRecyclerHeadersAdapter<BaseBindViewHolder<B>> {
+public abstract class StickyHeaderBindAdapter<T, SB extends ViewDataBinding, B extends ViewDataBinding>
+        extends SingleBindAdapter<T, B> implements StickyRecyclerHeadersAdapter<BaseBindViewHolder<SB>> {
 
     // sticky header res id;
     @LayoutRes
@@ -45,16 +48,16 @@ public abstract class StickyHeaderBindAdapter<T, B extends ViewDataBinding>
 
     @SuppressWarnings("unchecked")
     @Override
-    public final BaseBindViewHolder<B> onCreateHeaderViewHolder(ViewGroup parent) {
+    public final BaseBindViewHolder<SB> onCreateHeaderViewHolder(ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        B binding = DataBindingUtil.inflate(inflater, headerLayoutId, parent, false);
+        SB binding = DataBindingUtil.inflate(inflater, headerLayoutId, parent, false);
         this.headerHeight = binding.getRoot().getLayoutParams().height;
         return BaseBindViewHolder.get(binding, headerLayoutId, this);
     }
 
     @Override
-    public final void onBindHeaderViewHolder(BaseBindViewHolder<B> holder, int position) {
-        B binding = holder.getBinding();
+    public final void onBindHeaderViewHolder(BaseBindViewHolder<SB> holder, int position) {
+        SB binding = holder.getBinding();
         convertHeader(getItem(position), binding, position);
         binding.executePendingBindings();
     }
@@ -83,8 +86,8 @@ public abstract class StickyHeaderBindAdapter<T, B extends ViewDataBinding>
      * 填充粘性头部显示的内容
      *
      * @param t        header 对象数据封装
-     * @param binding  {@link B}
+     * @param binding  {@link SB}
      * @param position header 条目下标
      */
-    public abstract void convertHeader(T t, B binding, int position);
+    public abstract void convertHeader(T t, SB binding, int position);
 }

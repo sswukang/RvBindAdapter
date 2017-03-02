@@ -50,8 +50,9 @@ public class MainActivity extends BaseActivity<MainActivityBinding, MainViewMode
         initLeftMenuPop();
         initRightMenuPop();
         // 初始化ViewPager
-        getDataBinding().setPagerAdapter(new BaseFragmentAdapter<>(getSupportFragmentManager(),
-                Arrays.asList(new MainSingleFragment(), new MainMultiFragment())));
+        getDataBinding().setAdapter(new BaseFragmentAdapter<>(getSupportFragmentManager(),
+                Arrays.asList(new MainSingleFragment(), new MainMultiFragment(),
+                        new MainStickyFragment())));
     }
 
     private void initLeftMenuPop() {
@@ -72,13 +73,13 @@ public class MainActivity extends BaseActivity<MainActivityBinding, MainViewMode
             Log.e("leftMenuPop", "viewId:" + view.getId() + " pos:" + position + " id:" + id);
             switch (position) {
                 case 0:
-                    getDataBinding().mainViewPager.setCurrentItem(position, false);
+                    getDataBinding().setCurrentItem(position);
                     break;
                 case 1:
-                    getDataBinding().mainViewPager.setCurrentItem(position, false);
+                    getDataBinding().setCurrentItem(position);
                     break;
                 case 2:
-                    Snackbar.make(getDataBinding().topToolbar, "waiting...", Snackbar.LENGTH_SHORT).show();
+                    getDataBinding().setCurrentItem(position);
                     break;
                 case 3:
                     Snackbar.make(getDataBinding().topToolbar, "waiting...", Snackbar.LENGTH_SHORT).show();

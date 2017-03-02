@@ -14,6 +14,9 @@ import java.util.List;
 /**
  * RecyclerView基础Adapter。(DataBinding模式)
  *
+ * @param <T> 数据类型
+ * @param <B> 内容布局绑定类
+ * @param <H> ViewHold类
  * @author sswukang on 2017/2/23 18:13
  * @version 1.0
  */

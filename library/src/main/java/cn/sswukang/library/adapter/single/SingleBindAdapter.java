@@ -13,6 +13,8 @@ import cn.sswukang.library.adapter.base.BaseBindViewHolder;
 /**
  * single item Adapter (DataBinding模式)
  *
+ * @param <T> 数据类型
+ * @param <B> 内容布局绑定类
  * @author sswukang on 2017/2/23 18:17
  * @version 1.0
  */

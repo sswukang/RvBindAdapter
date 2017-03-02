@@ -13,6 +13,7 @@ import cn.sswukang.library.adapter.base.BaseBindViewHolder;
 /**
  * multi Item Adapter。(DataBinding模式)
  *
+ * @param <T> 数据类型
  * @author sswukang on 2017/2/23 18:35
  * @version 1.0
  */
