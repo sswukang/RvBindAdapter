@@ -1,11 +1,9 @@
 package cn.sswukang.example.view;
 
-import android.graphics.Color;
 import android.support.design.widget.Snackbar;
 import android.support.v7.view.menu.MenuAdapter;
 import android.support.v7.view.menu.MenuBuilder;
 import android.support.v7.widget.ListPopupWindow;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,6 +12,7 @@ import java.util.Arrays;
 
 import cn.sswukang.example.R;
 import cn.sswukang.example.base.BaseActivity;
+import cn.sswukang.example.base.BaseFragment;
 import cn.sswukang.example.base.BaseFragmentAdapter;
 import cn.sswukang.example.databinding.MainActivityBinding;
 import cn.sswukang.example.viewmodel.MainViewModel;
@@ -25,10 +24,14 @@ import cn.sswukang.example.viewmodel.MainViewModel;
  * @version 1.0
  */
 public class MainActivity extends BaseActivity<MainActivityBinding, MainViewModel> {
+
     // 左pop
     private ListPopupWindow leftMenuPop;
     // 右pop
     private ListPopupWindow rightMenuPop;
+
+    // FragmentAdapter
+    private BaseFragmentAdapter<BaseFragment> fragmentAdapter;
 
     @Override
     public int getLayoutId() {
@@ -40,19 +43,15 @@ public class MainActivity extends BaseActivity<MainActivityBinding, MainViewMode
         // 数据绑定
         getDataBinding().setMain(getViewModel());
         // 初始化ActionBar
-        getDataBinding().topToolbar.setTitleTextColor(Color.WHITE);
-        getDataBinding().topToolbar.setSubtitleTextColor(Color.argb(Math.round(255 * 0.8f), 255, 255, 255));
         setSupportActionBar(getDataBinding().topToolbar);
-        assert getSupportActionBar() != null;
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_top_menu);
         // 初始化PopupWindow
         initLeftMenuPop();
         initRightMenuPop();
         // 初始化ViewPager
-        getDataBinding().setAdapter(new BaseFragmentAdapter<>(getSupportFragmentManager(),
+        fragmentAdapter = new BaseFragmentAdapter<>(getSupportFragmentManager(),
                 Arrays.asList(new MainSingleFragment(), new MainMultiFragment(),
-                        new MainStickyFragment())));
+                        new MainStickyFragment()));
+        getDataBinding().setAdapter(fragmentAdapter);
     }
 
     private void initLeftMenuPop() {
@@ -70,7 +69,6 @@ public class MainActivity extends BaseActivity<MainActivityBinding, MainViewMode
         leftMenuPop.setDropDownGravity(Gravity.START);
         leftMenuPop.setModal(true);//设置是否是模式
         leftMenuPop.setOnItemClickListener((parent, view, position, id) -> {
-            Log.e("leftMenuPop", "viewId:" + view.getId() + " pos:" + position + " id:" + id);
             switch (position) {
                 case 0:
                     getDataBinding().setCurrentItem(position);
@@ -103,16 +101,15 @@ public class MainActivity extends BaseActivity<MainActivityBinding, MainViewMode
         rightMenuPop.setDropDownGravity(Gravity.END);
         rightMenuPop.setModal(true);//设置是否是模式
         rightMenuPop.setOnItemClickListener((parent, view, position, id) -> {
-            Log.e("rightMenuPop", "viewId:" + view.getId() + " pos:" + position + " id:" + id);
             switch (position) {
                 case 0:
-                    Snackbar.make(getDataBinding().topToolbar, "waiting...", Snackbar.LENGTH_SHORT).show();
+                    fragmentAdapter.getItem(getDataBinding().mainViewPager.getCurrentItem()).asc();
                     break;
                 case 1:
-                    Snackbar.make(getDataBinding().topToolbar, "waiting...", Snackbar.LENGTH_SHORT).show();
+                    fragmentAdapter.getItem(getDataBinding().mainViewPager.getCurrentItem()).desc();
                     break;
                 case 2:
-                    Snackbar.make(getDataBinding().topToolbar, "waiting...", Snackbar.LENGTH_SHORT).show();
+                    fragmentAdapter.getItem(getDataBinding().mainViewPager.getCurrentItem()).shuffle();
                     break;
             }
             rightMenuPop.dismiss();

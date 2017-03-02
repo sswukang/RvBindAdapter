@@ -23,7 +23,7 @@ public abstract class MultiBindAdapter<T>
     /**
      * @param data 数据
      */
-    public MultiBindAdapter(List<T> data) {
+    protected MultiBindAdapter(List<T> data) {
         super(-1, data);
     }
 

@@ -27,7 +27,7 @@ import cn.sswukang.library.adapter.multi.MultiBindAdapter;
  */
 public class MainMultiFragment extends BaseFragment<MainMultiFragmentBinding, MainMultiViewModel, MainActivity> {
 
-    private Country header;
+    private MultiBindAdapter<Country> adapter;
 
     @Override
     public int getLayoutId() {
@@ -36,7 +36,8 @@ public class MainMultiFragment extends BaseFragment<MainMultiFragmentBinding, Ma
 
     @Override
     public void initView() {
-        header = new Country();
+        // 模拟添加一些数据
+        Country header = new Country();
         header.setCountryNameEn("Recycler View Multi Adapter Item.");
         List<Country> list = new ArrayList<>();
         list.add(header); // 添加一些 title item 数据
@@ -45,8 +46,7 @@ public class MainMultiFragment extends BaseFragment<MainMultiFragmentBinding, Ma
         // ViewModel数据绑定
         getDataBinding().setMainMulti(getViewModel());
         // Adapter数据绑定
-        getDataBinding().setLayoutManager(new LinearLayoutManager(getContext()));
-        getDataBinding().setAdapter(new MultiBindAdapter<Country>(list) {
+        adapter = new MultiBindAdapter<Country>(list) {
             @Override
             public int getItemLayoutId(Country country, int position) {
                 // 得到每个类型item的布局id
@@ -83,7 +83,13 @@ public class MainMultiFragment extends BaseFragment<MainMultiFragmentBinding, Ma
                         break;
                 }
             }
-        });
+        };
+        getDataBinding().setLayoutManager(new LinearLayoutManager(getContext()));
+        getDataBinding().setAdapter(adapter);
     }
 
+    public void updateAdapter(List<Country> data) {
+        adapter.setData(data);
+        adapter.notifyDataSetChanged();
+    }
 }

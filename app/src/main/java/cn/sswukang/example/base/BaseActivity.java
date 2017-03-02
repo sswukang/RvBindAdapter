@@ -15,7 +15,7 @@ import java.lang.reflect.Type;
  * @author sswukang on 2017/2/21 10:36
  * @version 1.0
  */
-public abstract class BaseActivity<B extends ViewDataBinding, M extends BaseViewModelActivity>
+public abstract class BaseActivity<B extends ViewDataBinding, M extends BaseActivityViewModel>
         extends AppCompatActivity {
 
     // 视图绑定对象
@@ -52,58 +52,21 @@ public abstract class BaseActivity<B extends ViewDataBinding, M extends BaseView
         initView();
         // 初始化ViewModel
         mViewModel.setView(this);
-        mViewModel.onCreate();
     }
 
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        mViewModel.onRestart();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        mViewModel.onStart();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mViewModel.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        mViewModel.onPause();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        mViewModel.onStop();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mViewModel.onDestroy();
-    }
-
-    public B getDataBinding() {
+    public final B getDataBinding() {
         return mDataBinding;
     }
 
-    public M getViewModel() {
+    public final M getViewModel() {
         return mViewModel;
     }
 
-    public Context getContext() {
+    public final Context getContext() {
         return this;
     }
 
-    public BaseActivity getActivity() {
+    public final BaseActivity getActivity() {
         return this;
     }
 }

@@ -32,7 +32,7 @@ public abstract class BaseBindAdapter<T, B extends ViewDataBinding, H extends Ba
      * @param layoutId adapter需要的布局资源id
      * @param data     数据
      */
-    public BaseBindAdapter(@LayoutRes int layoutId, List<T> data) {
+    protected BaseBindAdapter(@LayoutRes int layoutId, List<T> data) {
         this.layoutId = layoutId;
         this.data = data;
         setHasStableIds(true);

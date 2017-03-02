@@ -5,6 +5,8 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
+import java.util.List;
+
 import cn.sswukang.example.R;
 import cn.sswukang.example.base.BaseFragment;
 import cn.sswukang.example.databinding.MainSingleFragmentBinding;
@@ -22,6 +24,8 @@ import cn.sswukang.library.adapter.single.SingleBindAdapter;
  */
 public class MainSingleFragment extends BaseFragment<MainSingleFragmentBinding, MainSingleViewModel, MainActivity> {
 
+    private SingleBindAdapter<Country, SingleAdapterBinding> adapter;
+
     @Override
     public int getLayoutId() {
         return R.layout.fragment_main_single;
@@ -32,8 +36,7 @@ public class MainSingleFragment extends BaseFragment<MainSingleFragmentBinding, 
         // ViewModel数据绑定
         getDataBinding().setMainSingle(getViewModel());
         // Adapter数据绑定
-        getDataBinding().setLayoutManager(new LinearLayoutManager(getContext()));
-        getDataBinding().setAdapter(new SingleBindAdapter<Country, SingleAdapterBinding>(R.layout.rv_single_item,
+        adapter = new SingleBindAdapter<Country, SingleAdapterBinding>(R.layout.rv_single_item,
                 CountryManager.getInstance().getCountryList()) {
             @Override
             public void convert(Country country, SingleAdapterBinding binding) {
@@ -48,7 +51,13 @@ public class MainSingleFragment extends BaseFragment<MainSingleFragmentBinding, 
                 getCreatorActivity().getViewModel().nameCn.set(country.getCountryNameCn());
                 getCreatorActivity().getViewModel().nameEn.set(country.getCountryNameEn());
             }
-        });
+        };
+        getDataBinding().setLayoutManager(new LinearLayoutManager(getContext()));
+        getDataBinding().setAdapter(adapter);
     }
 
+    public void updateAdapter(List<Country> data) {
+        adapter.setData(data);
+        adapter.notifyDataSetChanged();
+    }
 }

@@ -5,6 +5,8 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
+import java.util.List;
+
 import cn.sswukang.example.R;
 import cn.sswukang.example.base.BaseFragment;
 import cn.sswukang.example.databinding.MainStickyFragmentBinding;
@@ -67,5 +69,10 @@ public class MainStickyFragment extends BaseFragment<MainStickyFragmentBinding, 
         getDataBinding().setItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         getDataBinding().setStickyDecoration(new StickyRecyclerHeadersDecoration(adapter)); // 必须添加
         getDataBinding().setAdapter(adapter);
+    }
+
+    public void updateAdapter(List<Country> data) {
+        adapter.setData(data);
+        adapter.notifyDataSetChanged();
     }
 }

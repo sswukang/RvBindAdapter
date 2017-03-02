@@ -18,7 +18,7 @@ import java.lang.reflect.Type;
  * @author sswukang on 2017/2/22 15:30
  * @version 1.0
  */
-public abstract class BaseFragment<B extends ViewDataBinding, M extends BaseViewModelFragment, T extends BaseActivity>
+public abstract class BaseFragment<B extends ViewDataBinding, M extends BaseFragmentViewModel, T extends BaseActivity>
         extends Fragment {
 
     // 视图绑定对象
@@ -58,28 +58,28 @@ public abstract class BaseFragment<B extends ViewDataBinding, M extends BaseView
         return mDataBinding.getRoot();
     }
 
-    public B getDataBinding() {
+    public final B getDataBinding() {
         return mDataBinding;
     }
 
-    public M getViewModel() {
+    public final M getViewModel() {
         return mViewModel;
     }
 
     @SuppressWarnings("unchecked")
-    protected T getCreatorActivity() {
+    protected final T getCreatorActivity() {
         return (T) getActivity();
     }
 
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        mViewModel.onViewCreated(view, savedInstanceState);
+    public void asc(){
+        mViewModel.asc();
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        mViewModel.onDestroyView();
+    public void desc() {
+        mViewModel.desc();
+    }
+
+    public void shuffle() {
+        mViewModel.shuffle();
     }
 }

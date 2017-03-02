@@ -30,9 +30,11 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorPrimary"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
-            app:subtitle='@{TextUtils.isEmpty(main.nameCn) ? "": main.nameEn}'
-            app:theme="@style/AppTheme"
-            app:title='@{TextUtils.isEmpty(main.nameCn) ? @string/none : main.nameCn}' />
+            app:subtitle='@{main.nameEn ?? ""}'
+            app:subtitleTextColor="#ccffffff"
+            app:theme="@style/AppTheme.AppBarOverlay"
+            app:title="@{TextUtils.isEmpty(main.nameCn) ? @string/none : main.nameCn}"
+            app:titleTextColor="@android:color/white" />
 
         <cn.sswukang.example.myview.NoScrollViewPager
             android:id="@+id/main_view_pager"

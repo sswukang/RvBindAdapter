@@ -36,7 +36,7 @@ public abstract class StickyHeaderBindAdapter<T, SB extends ViewDataBinding, B e
      * @param layoutId       content需要的布局资源id
      * @param data           数据
      */
-    public StickyHeaderBindAdapter(@LayoutRes int headerLayoutId, @LayoutRes int layoutId, List<T> data) {
+    protected StickyHeaderBindAdapter(@LayoutRes int headerLayoutId, @LayoutRes int layoutId, List<T> data) {
         super(layoutId, data);
         this.headerLayoutId = headerLayoutId;
     }

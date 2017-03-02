@@ -10,4 +10,9 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="AppTheme.AppBarOverlay" parent="AppTheme">
+        <item name="homeAsUpIndicator">@drawable/ic_top_menu</item>
+        <item name="android:homeAsUpIndicator">@drawable/ic_top_menu</item>
+        <item name="navigationIcon">@drawable/ic_top_menu</item>
+    </style>
 </resources>
