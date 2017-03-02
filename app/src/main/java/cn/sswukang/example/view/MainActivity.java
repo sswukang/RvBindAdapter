@@ -101,7 +101,7 @@ public class MainActivity extends BaseActivity<MainActivityBinding, MainViewMode
         rightMenuPop.setDropDownGravity(Gravity.END);
         rightMenuPop.setModal(true);//设置是否是模式
         rightMenuPop.setOnItemClickListener((parent, view, position, id) -> {
-            switch (position) {
+            switch (position) { // 调用排序方法
                 case 0:
                     fragmentAdapter.getItem(getDataBinding().mainViewPager.getCurrentItem()).asc();
                     break;
