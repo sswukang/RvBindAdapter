@@ -8,7 +8,7 @@ import android.databinding.ViewDataBinding;
  * @author sswukang on 2017/2/22 16:05
  * @version 1.0
  */
-public abstract class BaseFragmentViewModel<F extends BaseFragment, B extends ViewDataBinding> {
+public class BaseFragmentViewModel<F extends BaseFragment, B extends ViewDataBinding> {
 
     // fragment
     private F mFragment;
@@ -29,9 +29,23 @@ public abstract class BaseFragmentViewModel<F extends BaseFragment, B extends Vi
         return mDataBinding;
     }
 
-    public abstract void asc();
+    public void initViewModel() {
+        // do something...
+    }
 
-    public abstract void desc();
+    public void releaseViewModel() {
+        // do something...
+    }
 
-    public abstract void shuffle();
+    public void asc() {
+        // do something...
+    }
+
+    public void desc() {
+        // do something...
+    }
+
+    public void shuffle() {
+        // do something...
+    }
 }

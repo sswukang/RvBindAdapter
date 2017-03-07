@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
-
+    <!--suppress AndroidUnknownAttribute -->
     <data class="MultiAdapterContentBinding">
 
         <import type="cn.sswukang.example.util.BindingUtils" />

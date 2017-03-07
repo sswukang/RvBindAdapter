@@ -11,6 +11,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 
 import cn.sswukang.example.model.Conversion;
+import cn.sswukang.library.adapter.sticky.StickyHeaderBindAdapter;
+import cn.sswukang.library.lib.side.SideAndStickyHeaderRecyclerView;
 import cn.sswukang.library.lib.sticky_header.sticky.StickyRecyclerHeadersDecoration;
 
 /**
@@ -91,6 +93,22 @@ public class BindingUtils {
      */
     @BindingAdapter("stickyDecoration")
     public static void setStickyDecoration(RecyclerView view, StickyRecyclerHeadersDecoration decoration) {
+        view.addItemDecoration(decoration);
+    }
+
+    /**
+     * 数据绑定方式执行{@link SideAndStickyHeaderRecyclerView#setAdapter(StickyHeaderBindAdapter)}
+     */
+    @BindingAdapter("adapter")
+    public static void setAdapter(SideAndStickyHeaderRecyclerView view, StickyHeaderBindAdapter adapter) {
+        view.setAdapter(adapter);
+    }
+
+    /**
+     * 数据绑定方式执行{@link SideAndStickyHeaderRecyclerView#addItemDecoration(RecyclerView.ItemDecoration)}
+     */
+    @BindingAdapter("itemDecoration")
+    public static void setItemDecoration(SideAndStickyHeaderRecyclerView view, RecyclerView.ItemDecoration decoration) {
         view.addItemDecoration(decoration);
     }
 

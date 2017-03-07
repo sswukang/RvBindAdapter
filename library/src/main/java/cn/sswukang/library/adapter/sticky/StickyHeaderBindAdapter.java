@@ -39,6 +39,7 @@ public abstract class StickyHeaderBindAdapter<T, SB extends ViewDataBinding, B e
     protected StickyHeaderBindAdapter(@LayoutRes int headerLayoutId, @LayoutRes int layoutId, List<T> data) {
         super(layoutId, data);
         this.headerLayoutId = headerLayoutId;
+        this.headerHeight = setHeaderHeight();
     }
 
     @Override
@@ -51,7 +52,6 @@ public abstract class StickyHeaderBindAdapter<T, SB extends ViewDataBinding, B e
     public final BaseBindViewHolder<SB> onCreateHeaderViewHolder(ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         SB binding = DataBindingUtil.inflate(inflater, headerLayoutId, parent, false);
-        this.headerHeight = binding.getRoot().getLayoutParams().height;
         return BaseBindViewHolder.get(binding, headerLayoutId, this);
     }
 
@@ -63,13 +63,20 @@ public abstract class StickyHeaderBindAdapter<T, SB extends ViewDataBinding, B e
     }
 
     /**
-     * 开放粘性头部高度，方便 recycler view 滚动。
+     * 得到粘性头部高度。
      *
      * @return sticky header height
      */
     public int getHeaderHeight() {
         return headerHeight;
     }
+
+    /**
+     * 设置粘性头部高度，方便sticky header定位
+     *
+     * @return sticky header height
+     */
+    public abstract int setHeaderHeight();
 
     /**
      * 获得 header id 。如果某几个条目有相同的header，其id 需相同。

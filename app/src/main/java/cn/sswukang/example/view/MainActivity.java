@@ -1,6 +1,5 @@
 package cn.sswukang.example.view;
 
-import android.support.design.widget.Snackbar;
 import android.support.v7.view.menu.MenuAdapter;
 import android.support.v7.view.menu.MenuBuilder;
 import android.support.v7.widget.ListPopupWindow;
@@ -50,7 +49,7 @@ public class MainActivity extends BaseActivity<MainActivityBinding, MainViewMode
         // 初始化ViewPager
         fragmentAdapter = new BaseFragmentAdapter<>(getSupportFragmentManager(),
                 Arrays.asList(new MainSingleFragment(), new MainMultiFragment(),
-                        new MainStickyFragment()));
+                        new MainStickyFragment(), new MainSideStickyFragment()));
         getDataBinding().setAdapter(fragmentAdapter);
     }
 
@@ -69,20 +68,7 @@ public class MainActivity extends BaseActivity<MainActivityBinding, MainViewMode
         leftMenuPop.setDropDownGravity(Gravity.START);
         leftMenuPop.setModal(true);//设置是否是模式
         leftMenuPop.setOnItemClickListener((parent, view, position, id) -> {
-            switch (position) {
-                case 0:
-                    getDataBinding().setCurrentItem(position);
-                    break;
-                case 1:
-                    getDataBinding().setCurrentItem(position);
-                    break;
-                case 2:
-                    getDataBinding().setCurrentItem(position);
-                    break;
-                case 3:
-                    Snackbar.make(getDataBinding().topToolbar, "waiting...", Snackbar.LENGTH_SHORT).show();
-                    break;
-            }
+            getDataBinding().setCurrentItem(position);
             leftMenuPop.dismiss();
         });
     }

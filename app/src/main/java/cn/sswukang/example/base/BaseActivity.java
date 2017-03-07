@@ -42,7 +42,7 @@ public abstract class BaseActivity<B extends ViewDataBinding, M extends BaseActi
         // 得到ViewModel
         Type genType = getClass().getGenericSuperclass();
         Type[] params = ((ParameterizedType) genType).getActualTypeArguments();
-        Class<M> bizClass = (Class) params[1];
+        Class<M> bizClass = (Class) params[1]; // 泛型位置
         try {
             mViewModel = bizClass.newInstance();
         } catch (Exception e) {
@@ -52,6 +52,13 @@ public abstract class BaseActivity<B extends ViewDataBinding, M extends BaseActi
         initView();
         // 初始化ViewModel
         mViewModel.setView(this);
+        mViewModel.initViewModel();
+    }
+
+    @Override
+    protected void onDestroy() {
+        mViewModel.releaseViewModel();
+        super.onDestroy();
     }
 
     public final B getDataBinding() {

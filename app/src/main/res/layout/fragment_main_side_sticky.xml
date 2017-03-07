@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!--suppress AndroidUnknownAttribute -->
+    <data class="MainSideStickyFragmentBinding">
+
+        <variable
+            name="mainSideSticky"
+            type="cn.sswukang.example.viewmodel.MainSideStickyViewModel" />
+
+        <variable
+            name="adapter"
+            type="cn.sswukang.library.adapter.sticky.StickyHeaderBindAdapter" />
+
+        <variable
+            name="itemDecoration"
+            type="android.support.v7.widget.RecyclerView.ItemDecoration" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <cn.sswukang.library.lib.side.SideAndStickyHeaderRecyclerView
+            android:id="@+id/side_sticky_rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:adapter="@{adapter}"
+            app:itemDecoration="@{itemDecoration}" />
+    </LinearLayout>
+</layout>

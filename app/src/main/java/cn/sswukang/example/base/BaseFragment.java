@@ -55,7 +55,14 @@ public abstract class BaseFragment<B extends ViewDataBinding, M extends BaseFrag
         initView();
         // 初始化ViewModel
         mViewModel.setView(this);
+        mViewModel.initViewModel();
         return mDataBinding.getRoot();
+    }
+
+    @Override
+    public void onDestroyView() {
+        mViewModel.releaseViewModel();
+        super.onDestroyView();
     }
 
     public final B getDataBinding() {
@@ -71,7 +78,7 @@ public abstract class BaseFragment<B extends ViewDataBinding, M extends BaseFrag
         return (T) getActivity();
     }
 
-    public void asc(){
+    public void asc() {
         mViewModel.asc();
     }
 

@@ -29,4 +29,11 @@ public class BaseActivityViewModel<A extends BaseActivity, B extends ViewDataBin
         return mDataBinding;
     }
 
+    public void initViewModel() {
+        // do something...
+    }
+
+    public void releaseViewModel() {
+        // do something...
+    }
 }

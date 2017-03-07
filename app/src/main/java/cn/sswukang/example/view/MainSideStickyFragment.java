@@ -2,41 +2,39 @@ package cn.sswukang.example.view;
 
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
 import java.util.List;
 
 import cn.sswukang.example.R;
 import cn.sswukang.example.base.BaseFragment;
-import cn.sswukang.example.databinding.MainStickyFragmentBinding;
+import cn.sswukang.example.databinding.MainSideStickyFragmentBinding;
 import cn.sswukang.example.databinding.StickyAdapterContentBinding;
 import cn.sswukang.example.databinding.StickyAdapterTitleBinding;
 import cn.sswukang.example.manager.CountryManager;
 import cn.sswukang.example.model.Country;
-import cn.sswukang.example.viewmodel.MainStickyViewModel;
+import cn.sswukang.example.viewmodel.MainSideStickyViewModel;
 import cn.sswukang.library.adapter.sticky.StickyHeaderBindAdapter;
-import cn.sswukang.library.lib.sticky_header.sticky.StickyRecyclerHeadersDecoration;
 
 /**
- * Sticky Fragment
+ * Side Sticky Fragment
  *
- * @author sswukang on 2017/3/2 14:27
+ * @author sswukang on 2017/3/7 11:09
  * @version 1.0
  */
-public class MainStickyFragment extends BaseFragment<MainStickyFragmentBinding, MainStickyViewModel, MainActivity> {
+public class MainSideStickyFragment extends BaseFragment<MainSideStickyFragmentBinding, MainSideStickyViewModel, MainActivity> {
 
     private StickyHeaderBindAdapter<Country, StickyAdapterTitleBinding, StickyAdapterContentBinding> adapter;
 
     @Override
     public int getLayoutId() {
-        return R.layout.fragment_main_sticky;
+        return R.layout.fragment_main_side_sticky;
     }
 
     @Override
     public void initView() {
         // ViewModel数据绑定
-        getDataBinding().setMainSticky(getViewModel());
+        getDataBinding().setMainSideSticky(getViewModel());
         // Adapter数据绑定
         adapter = new StickyHeaderBindAdapter<Country, StickyAdapterTitleBinding, StickyAdapterContentBinding>(
                 R.layout.rv_sticky_title, R.layout.rv_sticky_content, CountryManager.getInstance().getCountryList()) {
@@ -70,9 +68,7 @@ public class MainStickyFragment extends BaseFragment<MainStickyFragmentBinding, 
                 getCreatorActivity().getViewModel().nameEn.set(country.getCountryNameEn());
             }
         };
-        getDataBinding().setLayoutManager(new LinearLayoutManager(getContext()));
         getDataBinding().setItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
-        getDataBinding().setStickyDecoration(new StickyRecyclerHeadersDecoration(adapter)); // 必须添加
         getDataBinding().setAdapter(adapter);
     }
 
