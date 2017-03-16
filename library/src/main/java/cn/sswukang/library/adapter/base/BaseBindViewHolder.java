@@ -2,14 +2,9 @@ package cn.sswukang.library.adapter.base;
 
 import android.content.Context;
 import android.databinding.ViewDataBinding;
-import android.graphics.drawable.Drawable;
-import android.support.annotation.DrawableRes;
 import android.support.annotation.LayoutRes;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
-import android.view.Gravity;
 import android.view.View;
-import android.widget.TextView;
 
 
 /**
