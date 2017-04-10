@@ -35,12 +35,12 @@ public abstract class SingleBindAdapter<T, B extends ViewDataBinding>
 
     @Override
     public final void onItemClick(View itemView, int position, @LayoutRes int layoutId) {
-        onItemClick(itemView, getItem(position));
+        onItemClick(itemView, getItem(position), position);
     }
 
     @Override
     public final boolean onItemLongClick(View itemView, int position, @LayoutRes int layoutId) {
-        return onItemLongClick(itemView, getItem(position));
+        return onItemLongClick(itemView, getItem(position), position);
     }
 
     /**
@@ -54,21 +54,23 @@ public abstract class SingleBindAdapter<T, B extends ViewDataBinding>
     /**
      * item的单击事件
      *
-     * @param itemView 点击的item {@link BaseBindViewHolder<B>#itemView}
+     * @param itemView 点击的item {@link BaseBindViewHolder#itemView}
      * @param t        每个 position 对应的封装
+     * @param position 当前行数，采用{@link BaseBindViewHolder#getLayoutPosition()}
      */
-    public void onItemClick(View itemView, T t) {
+    public void onItemClick(View itemView, T t, int position) {
         // do something...
     }
 
     /**
      * item的长按事件
      *
-     * @param itemView 点击的item {@link BaseBindViewHolder<B>#itemView}
+     * @param itemView 点击的item {@link BaseBindViewHolder#itemView}
      * @param t        每个 position 对应的封装
+     * @param position 当前行数，采用{@link BaseBindViewHolder#getLayoutPosition()}
      * @return 长按事件是否被消费
      */
-    public boolean onItemLongClick(View itemView, T t) {
+    public boolean onItemLongClick(View itemView, T t, int position) {
         return false;
     }
 }

@@ -70,7 +70,7 @@ public class MainMultiFragment extends BaseFragment<MainMultiFragmentBinding, Ma
             }
 
             @Override
-            public void onItemClick(View itemView, Country country, @LayoutRes int layoutId) {
+            public void onItemClick(View itemView, Country country, int position, @LayoutRes int layoutId) {
                 switch (layoutId) {
                     case R.layout.rv_multi_title:
                         Snackbar.make(itemView, "MultiAdapter Title Item.", Snackbar.LENGTH_SHORT).show();

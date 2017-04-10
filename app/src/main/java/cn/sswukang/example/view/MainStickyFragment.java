@@ -63,7 +63,7 @@ public class MainStickyFragment extends BaseFragment<MainStickyFragmentBinding, 
             }
 
             @Override
-            public void onItemClick(View itemView, Country country) {
+            public void onItemClick(View itemView, Country country, int position) {
                 Snackbar.make(itemView, country.toString(), Snackbar.LENGTH_SHORT).show();
                 // 点击改变opToolbar内容
                 getCreatorActivity().getViewModel().nameCn.set(country.getCountryNameCn());

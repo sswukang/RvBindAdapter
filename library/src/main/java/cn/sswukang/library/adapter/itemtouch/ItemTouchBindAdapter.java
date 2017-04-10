@@ -12,6 +12,7 @@ import java.util.Collections;
 import java.util.List;
 
 import cn.sswukang.library.adapter.base.BaseBindAdapter;
+import cn.sswukang.library.adapter.base.BaseBindViewHolder;
 
 
 /**
@@ -48,12 +49,12 @@ public abstract class ItemTouchBindAdapter<T, B extends ViewDataBinding>
 
     @Override
     public final void onItemClick(View itemView, int position, @LayoutRes int layoutId) {
-        onItemClick(itemView, getItem(position));
+        onItemClick(itemView, getItem(position), position);
     }
 
     @Override
     public final boolean onItemLongClick(View itemView, int position, @LayoutRes int layoutId) {
-        return onItemLongClick(itemView, getItem(position));
+        return onItemLongClick(itemView, getItem(position), position);
     }
 
     @Override
@@ -86,8 +87,9 @@ public abstract class ItemTouchBindAdapter<T, B extends ViewDataBinding>
      *
      * @param itemView 点击的item {@link ItemTouchBindViewHolder#itemView}
      * @param t        每个 position 对应的封装
+     * @param position 当前行数，采用{@link BaseBindViewHolder#getLayoutPosition()}
      */
-    public void onItemClick(View itemView, T t) {
+    public void onItemClick(View itemView, T t, int position) {
         // do something...
     }
 
@@ -96,9 +98,10 @@ public abstract class ItemTouchBindAdapter<T, B extends ViewDataBinding>
      *
      * @param itemView 点击的item {@link ItemTouchBindViewHolder#itemView}
      * @param t        每个 position 对应的封装
+     * @param position 当前行数，采用{@link BaseBindViewHolder#getLayoutPosition()}
      * @return 长按事件是否被消费
      */
-    public boolean onItemLongClick(View itemView, T t) {
+    public boolean onItemLongClick(View itemView, T t, int position) {
         return false;
     }
 

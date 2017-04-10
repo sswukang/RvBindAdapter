@@ -45,7 +45,7 @@ public class MainSingleFragment extends BaseFragment<MainSingleFragmentBinding, 
             }
 
             @Override
-            public void onItemClick(View itemView, Country country) {
+            public void onItemClick(View itemView, Country country, int position) {
                 Snackbar.make(itemView, country.toString(), Snackbar.LENGTH_SHORT).show();
                 // 点击改变opToolbar内容
                 getCreatorActivity().getViewModel().nameCn.set(country.getCountryNameCn());
