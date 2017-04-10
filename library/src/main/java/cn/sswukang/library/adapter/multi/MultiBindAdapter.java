@@ -98,7 +98,7 @@ public abstract class MultiBindAdapter<T>
     }
 
     /**
-     * 得到每个item的ViewDataBinding(注：一定要是xml对应的ViewDataBinding)
+     * 得到每个item的ViewDataBinding(注：一定要是item xml对应的ViewDataBinding)
      *
      * @param binding {@link ViewDataBinding}
      * @param <B>     {@link B}
