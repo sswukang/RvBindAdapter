@@ -44,12 +44,12 @@ public class MainSideStickyFragment extends BaseFragment<MainSideStickyFragmentB
             }
 
             @Override
-            public long getHeaderId(Country country, int position) {
+            public long getHeaderId(int position, Country country) {
                 return country.getCountryNameEn().charAt(0);
             }
 
             @Override
-            public void convertHeader(Country country, StickyAdapterTitleBinding binding, int position) {
+            public void convertHeader(int position, Country country, StickyAdapterTitleBinding binding) {
                 // 粘性头部数据绑定
                 binding.setCountry(country);
             }
