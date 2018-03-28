@@ -19,8 +19,7 @@ import java.lang.reflect.Type;
  * @author sswukang on 2017/2/22 15:30
  * @version 1.0
  */
-public abstract class BaseFragment<B extends ViewDataBinding, M extends BaseFragmentViewModel, T extends BaseActivity>
-        extends Fragment {
+public abstract class BaseFragment<B extends ViewDataBinding, M extends BaseFragmentViewModel, T extends BaseActivity> extends Fragment {
 
     // 视图绑定对象
     private B mDataBinding;
@@ -46,7 +45,7 @@ public abstract class BaseFragment<B extends ViewDataBinding, M extends BaseFrag
         // 得到ViewModel
         Type genType = getClass().getGenericSuperclass();
         Type[] params = ((ParameterizedType) genType).getActualTypeArguments();
-        Class<M> bizClass = (Class) params[1];
+        Class<M> bizClass = (Class<M>) params[1];
         try {
             mViewModel = bizClass.newInstance();
         } catch (Exception e) {

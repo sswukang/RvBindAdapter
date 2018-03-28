@@ -30,7 +30,7 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorPrimary"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
-            app:subtitle='@{main.nameEn ?? ""}'
+            app:subtitle="@{main.nameEn ?? &quot;&quot;}"
             app:subtitleTextColor="#ccffffff"
             app:theme="@style/AppTheme.AppBarOverlay"
             app:title="@{TextUtils.isEmpty(main.nameCn) ? @string/none : main.nameCn}"

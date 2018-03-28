@@ -15,8 +15,7 @@ import java.lang.reflect.Type;
  * @author sswukang on 2017/2/21 10:36
  * @version 1.0
  */
-public abstract class BaseActivity<B extends ViewDataBinding, M extends BaseActivityViewModel>
-        extends AppCompatActivity {
+public abstract class BaseActivity<B extends ViewDataBinding, M extends BaseActivityViewModel> extends AppCompatActivity {
 
     // 视图绑定对象
     private B mDataBinding;
@@ -42,7 +41,7 @@ public abstract class BaseActivity<B extends ViewDataBinding, M extends BaseActi
         // 得到ViewModel
         Type genType = getClass().getGenericSuperclass();
         Type[] params = ((ParameterizedType) genType).getActualTypeArguments();
-        Class<M> bizClass = (Class) params[1]; // 泛型位置
+        Class<M> bizClass = (Class<M>) params[1]; // 泛型位置
         try {
             mViewModel = bizClass.newInstance();
         } catch (Exception e) {
