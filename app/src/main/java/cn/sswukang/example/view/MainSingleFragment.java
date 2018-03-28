@@ -39,13 +39,13 @@ public class MainSingleFragment extends BaseFragment<MainSingleFragmentBinding, 
         adapter = new SingleBindAdapter<Country, SingleAdapterBinding>(R.layout.rv_single_item,
                 CountryManager.getInstance().getCountryList()) {
             @Override
-            public void convert(Country country, SingleAdapterBinding binding) {
+            public void convert(int position, Country country, SingleAdapterBinding binding) {
                 // adapter数据绑定
                 binding.setCountry(country);
             }
 
             @Override
-            public void onItemClick(View itemView, Country country, int position) {
+            public void onItemClick(View itemView, int position, Country country) {
                 Snackbar.make(itemView, country.toString(), Snackbar.LENGTH_SHORT).show();
                 // 点击改变opToolbar内容
                 getCreatorActivity().getViewModel().nameCn.set(country.getCountryNameCn());

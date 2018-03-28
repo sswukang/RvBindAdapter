@@ -44,8 +44,7 @@ public class CountryManager {
     public void init(Context context) {
         try {
             String json = Utils.getTextFromAssets(context, "countrycode.json");
-            countryList = new Gson().fromJson(json, new TypeToken<List<Country>>() {
-            }.getType());
+            countryList = new Gson().fromJson(json, new TypeToken<List<Country>>() {}.getType());
         } catch (IOException ignore) {
             countryList = new ArrayList<>();
         }

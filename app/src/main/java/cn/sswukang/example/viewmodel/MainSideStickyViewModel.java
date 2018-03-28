@@ -44,7 +44,7 @@ public class MainSideStickyViewModel extends BaseFragmentViewModel<MainSideStick
 
     @Override
     public void desc() {
-// Country 排序
+        // Country 排序
         List<Country> sort = CountryManager.getInstance().getCountryList();
         Collections.sort(sort, CountryManager.getInstance().comparatorNameEnAcs());
         Collections.reverse(sort);
@@ -71,13 +71,16 @@ public class MainSideStickyViewModel extends BaseFragmentViewModel<MainSideStick
         Collections.shuffle(initialsShuffle);
         // Country 乱序
         List<Country> shuffle = new ArrayList<>();
+        // 循环乱序首字母
         for (String initials : initialsShuffle) {
             List<Country> initialsList = new ArrayList<>();
             for (Country country : CountryManager.getInstance().getCountryList()) {
                 if (country.getCountryNameEn().startsWith(initials)) {
+                    // 找到首字母与该字母相同的元素，并添加
                     initialsList.add(country);
                 }
             }
+            // 该字母所有元素排序
             Collections.sort(initialsList, CountryManager.getInstance().comparatorNameEnAcs());
             shuffle.addAll(initialsList);
         }

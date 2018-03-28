@@ -1,6 +1,7 @@
 package cn.sswukang.example.util;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,13 +17,14 @@ public class Utils {
     /**
      * 从assets读取文本信息
      */
+    @NonNull
     public static String getTextFromAssets(Context context, String fileName) throws IOException {
         InputStreamReader inputReader = new InputStreamReader(context.getAssets().open(fileName));
         BufferedReader bufReader = new BufferedReader(inputReader);
         String line;
-        String result = "";
+        StringBuilder result = new StringBuilder();
         while ((line = bufReader.readLine()) != null)
-            result += line;
-        return result;
+            result.append(line);
+        return result.toString();
     }
 }

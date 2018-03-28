@@ -13,23 +13,58 @@ import android.view.View;
  * @author sswukang on 2017/2/23 18:08
  * @version 1.0
  */
-public class BaseBindViewHolder<B extends ViewDataBinding> extends RecyclerView.ViewHolder
-        implements View.OnClickListener, View.OnLongClickListener {
+public class BaseBindViewHolder<B extends ViewDataBinding> extends RecyclerView.ViewHolder {
+
+    // 单击防抖动
+    private static abstract class DebouncingOnClickListener implements View.OnClickListener {
+        private static boolean enabled = true;
+
+        private static final Runnable ENABLE_AGAIN = () -> enabled = true;
+
+        @Override
+        public final void onClick(View v) {
+            if (enabled) {
+                enabled = false;
+                v.post(ENABLE_AGAIN);
+                doClick(v);
+            }
+        }
+
+        public abstract void doClick(View v);
+    }
+
+    /**
+     * RecyclerView Item 添加监听接口
+     */
+    protected interface RecyclerClickListener {
+        /**
+         * item 单击事件
+         */
+        void onItemClick(View v, int position, @LayoutRes int layoutId);
+
+        /**
+         * item 长按事件
+         */
+        boolean onItemLongClick(View v, int position, @LayoutRes int layoutId);
+    }
 
     private B binding;
     @LayoutRes
     private int layoutId;
-    private RecyclerClickListener listener;
 
     protected BaseBindViewHolder(B binding, @LayoutRes int layoutId, RecyclerClickListener listener) {
         super(binding.getRoot());
         this.binding = binding;
         this.layoutId = layoutId;
-        this.listener = listener;
 
         //添加监听事件
-        itemView.setOnClickListener(this);
-        itemView.setOnLongClickListener(this);
+        itemView.setOnClickListener(new DebouncingOnClickListener() {
+            @Override
+            public void doClick(View v) {
+                listener.onItemClick(v, getLayoutPosition(), getLayoutId());
+            }
+        });
+        itemView.setOnLongClickListener(v -> listener.onItemLongClick(v, getLayoutPosition(), getLayoutId()));
     }
 
     /**
@@ -41,8 +76,7 @@ public class BaseBindViewHolder<B extends ViewDataBinding> extends RecyclerView.
      * @return {@link BaseBindViewHolder}
      */
     @SuppressWarnings("unchecked")
-    public static <B extends ViewDataBinding> BaseBindViewHolder get(
-            B binding, @LayoutRes int layoutId, RecyclerClickListener listener) {
+    public static <B extends ViewDataBinding> BaseBindViewHolder get(B binding, @LayoutRes int layoutId, RecyclerClickListener listener) {
         return new BaseBindViewHolder(binding, layoutId, listener);
     }
 
@@ -51,16 +85,6 @@ public class BaseBindViewHolder<B extends ViewDataBinding> extends RecyclerView.
      */
     public B getBinding() {
         return binding;
-    }
-
-    @Override
-    public void onClick(View v) {
-        listener.onItemClick(v, getLayoutPosition(), getLayoutId());
-    }
-
-    @Override
-    public boolean onLongClick(View v) {
-        return listener.onItemLongClick(v, getLayoutPosition(), getLayoutId());
     }
 
     /**
@@ -82,18 +106,4 @@ public class BaseBindViewHolder<B extends ViewDataBinding> extends RecyclerView.
         return layoutId;
     }
 
-    /**
-     * RecyclerView Item 添加监听接口
-     */
-    protected interface RecyclerClickListener {
-        /**
-         * item 单击事件
-         */
-        void onItemClick(View v, int position, @LayoutRes int layoutId);
-
-        /**
-         * item 长按事件
-         */
-        boolean onItemLongClick(View v, int position, @LayoutRes int layoutId);
-    }
 }

@@ -57,13 +57,13 @@ public class MainStickyFragment extends BaseFragment<MainStickyFragmentBinding, 
             }
 
             @Override
-            public void convert(Country country, StickyAdapterContentBinding binding) {
+            public void convert(int position, Country country, StickyAdapterContentBinding binding) {
                 // 内容数据绑定
                 binding.setCountry(country);
             }
 
             @Override
-            public void onItemClick(View itemView, Country country, int position) {
+            public void onItemClick(View itemView, int position, Country country) {
                 Snackbar.make(itemView, country.toString(), Snackbar.LENGTH_SHORT).show();
                 // 点击改变opToolbar内容
                 getCreatorActivity().getViewModel().nameCn.set(country.getCountryNameCn());
@@ -71,7 +71,7 @@ public class MainStickyFragment extends BaseFragment<MainStickyFragmentBinding, 
             }
         };
         getDataBinding().setLayoutManager(new LinearLayoutManager(getContext()));
-        getDataBinding().setItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+        getDataBinding().setItemDecoration(new DividerItemDecoration(getCreatorActivity(), DividerItemDecoration.VERTICAL));
         getDataBinding().setStickyDecoration(new StickyRecyclerHeadersDecoration(adapter)); // 必须添加
         getDataBinding().setAdapter(adapter);
     }

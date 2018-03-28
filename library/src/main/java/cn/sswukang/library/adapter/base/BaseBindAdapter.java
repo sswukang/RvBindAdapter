@@ -4,6 +4,8 @@ import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,35 +49,47 @@ public abstract class BaseBindAdapter<T, B extends ViewDataBinding, H extends Ba
     }
 
     /**
-     * @param position item下标
-     * @return 获得item数据封装
+     * @return 获得item数据总个数
      */
-    protected T getItem(int position) {
-        List<T> data = getData();
-        if (data != null && data.size() > position)
-            return data.get(position);
-        return null;
-    }
-
-    /**
-     * @return 数据总数
-     */
-    @Override
-    public int getItemCount() {
+    public final int getDataSize() {
         List<T> data = getData();
         if (data != null)
             return data.size();
         return 0;
     }
 
+    /**
+     * @param position item下标
+     * @return 获得item数据封装
+     */
+    @Nullable
+    protected final T getDataItem(int position) {
+        List<T> data = getData();
+        if (data != null && data.size() > 0) {
+            if (position >= data.size()) {
+                position = position % data.size();
+            }
+            return data.get(position);
+        }
+        return null;
+    }
+
     // 设置ID，保证item操作不错乱
     @Override
     public long getItemId(int position) {
-        T t = getItem(position);
+        T t = getDataItem(position);
         if (t != null)
             return t.hashCode();
         else
             return super.getItemId(position);
+    }
+
+    /**
+     * @return 设置item总个数（一般为数据总个数，设置成{@link Integer#MAX_VALUE}可实现无限轮播）
+     */
+    @Override
+    public int getItemCount() {
+        return getDataSize();
     }
 
     /**
@@ -91,9 +105,10 @@ public abstract class BaseBindAdapter<T, B extends ViewDataBinding, H extends Ba
     }
 
     // 创建hold
+    @NonNull
     @SuppressWarnings("unchecked")
     @Override
-    public H onCreateViewHolder(ViewGroup parent, @LayoutRes int viewType) {
+    public H onCreateViewHolder(@NonNull ViewGroup parent, @LayoutRes int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         B binding = DataBindingUtil.inflate(inflater, viewType, parent, false);
         return (H) H.get(binding, viewType, this);
@@ -101,27 +116,28 @@ public abstract class BaseBindAdapter<T, B extends ViewDataBinding, H extends Ba
 
     // 绑定hold
     @Override
-    public void onBindViewHolder(H holder, int position) {
+    public void onBindViewHolder(@NonNull H holder, int position) {
         context = holder.getContext();
         B binding = holder.getBinding();
-        convert(getItem(position), binding, holder);
+        convert(position, getDataItem(position), binding, holder);
         binding.executePendingBindings();
     }
 
     /**
      * 实现该抽象方法，完成数据的绑定。
      *
-     * @param t       每个 position 对应的封装
-     * @param binding {@link B}
-     * @param holder  {@link H}
+     * @param position 当前item的position（无限轮播时会超过数据总个数）
+     * @param t        position 对应的对象（无限轮播时为对数据总个数取余后对应的对象）
+     * @param binding  {@link B}
+     * @param holder   {@link H}
      */
-    public abstract void convert(T t, B binding, H holder);
+    public abstract void convert(int position, T t, B binding, H holder);
 
     /**
      * 单击事件
      *
      * @param itemView 点击的item {@link H#itemView}
-     * @param position 当前行数，采用{@link H#getLayoutPosition()}
+     * @param position 当前点击的position，采用{@link H#getLayoutPosition()}（无限轮播时会超过数据总个数）
      * @param layoutId item布局id{@link H#getLayoutId()}
      */
     @Override
@@ -132,7 +148,7 @@ public abstract class BaseBindAdapter<T, B extends ViewDataBinding, H extends Ba
      * 长按事件
      *
      * @param itemView 点击的item {@link H#itemView}
-     * @param position 当前行数，采用{@link H#getLayoutPosition()}
+     * @param position 当前点击的position，采用{@link H#getLayoutPosition()}（无限轮播时会超过数据总个数）
      * @param layoutId item布局id{@link H#getLayoutId()}
      * @return 是否消费事件
      */

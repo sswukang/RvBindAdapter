@@ -105,6 +105,14 @@ public class BindingUtils {
     }
 
     /**
+     * 是否跟随移动
+     */
+    @BindingAdapter("linkageMove")
+    public static void setLinkageMove(SideAndStickyHeaderRecyclerView view, boolean linkageMove) {
+        view.linkageMove(linkageMove);
+    }
+
+    /**
      * 数据绑定方式执行{@link SideAndStickyHeaderRecyclerView#addItemDecoration(RecyclerView.ItemDecoration)}
      */
     @BindingAdapter("itemDecoration")

@@ -15,6 +15,10 @@
         <variable
             name="itemDecoration"
             type="android.support.v7.widget.RecyclerView.ItemDecoration" />
+
+        <variable
+            name="linkageMove"
+            type="Boolean" />
     </data>
 
     <LinearLayout
@@ -26,6 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:adapter="@{adapter}"
-            app:itemDecoration="@{itemDecoration}" />
+            app:itemDecoration="@{itemDecoration}"
+            app:linkageMove="@{linkageMove}" />
     </LinearLayout>
 </layout>

@@ -1,20 +1,16 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.jfrog.bintray'
 apply plugin: 'com.github.dcendents.android-maven'
-version = "1.0.3"
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
-
+    compileSdkVersion versions.compileSdk
+    buildToolsVersion versions.buildTools
     defaultConfig {
-        minSdkVersion 14
-        targetSdkVersion 25
-        versionCode 3
-        versionName version
-
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
+        minSdkVersion versions.minSdk
+        targetSdkVersion versions.targetSdk
+        versionCode verCode
+        versionName verName
+        testInstrumentationRunner deps.support.test.instrumentationRunner
     }
     buildTypes {
         release {
@@ -22,19 +18,20 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    dataBinding {
+    compileOptions {
+        sourceCompatibility versions.javaVersion
+        targetCompatibility versions.javaVersion
+    }
+	dataBinding {
         enabled = true
     }
 }
 
 dependencies {
-    //    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.android.support:design:25.3.1'
-    testCompile 'junit:junit:4.12'
+    testImplementation deps.test.junit
+    androidTestImplementation deps.support.test.runner
+    androidTestImplementation deps.support.test.espresso
+    implementation deps.support.design
 }
 
 def siteUrl = 'https://github.com/sswukang/RvBindAdapter'  // 项目的主页

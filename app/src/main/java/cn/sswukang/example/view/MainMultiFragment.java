@@ -48,14 +48,14 @@ public class MainMultiFragment extends BaseFragment<MainMultiFragmentBinding, Ma
         // Adapter数据绑定
         adapter = new MultiBindAdapter<Country>(list) {
             @Override
-            public int getItemLayoutId(Country country, int position) {
+            public int getItemLayoutId(int position, Country country) {
                 // 得到每个类型item的布局id
                 return position < getItemCount() - CountryManager.getInstance().getListSize() ?
                         R.layout.rv_multi_title : R.layout.rv_multi_content;
             }
 
             @Override
-            public void convert(Country country, ViewDataBinding binding, @LayoutRes int layoutId) {
+            public void convert(int position, Country country, ViewDataBinding binding, @LayoutRes int layoutId) {
                 // adapter数据绑定
                 switch (layoutId) {
                     case R.layout.rv_multi_title:
@@ -70,7 +70,7 @@ public class MainMultiFragment extends BaseFragment<MainMultiFragmentBinding, Ma
             }
 
             @Override
-            public void onItemClick(View itemView, Country country, int position, @LayoutRes int layoutId) {
+            public void onItemClick(View itemView, int position, Country country, @LayoutRes int layoutId) {
                 switch (layoutId) {
                     case R.layout.rv_multi_title:
                         Snackbar.make(itemView, "MultiAdapter Title Item.", Snackbar.LENGTH_SHORT).show();

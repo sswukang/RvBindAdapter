@@ -44,7 +44,7 @@ public abstract class StickyHeaderBindAdapter<T, SB extends ViewDataBinding, B e
 
     @Override
     public final long getHeaderId(int position) {
-        return getHeaderId(getItem(position), position);
+        return getHeaderId(getDataItem(position), position);
     }
 
     @SuppressWarnings("unchecked")
@@ -58,7 +58,7 @@ public abstract class StickyHeaderBindAdapter<T, SB extends ViewDataBinding, B e
     @Override
     public final void onBindHeaderViewHolder(BaseBindViewHolder<SB> holder, int position) {
         SB binding = holder.getBinding();
-        convertHeader(getItem(position), binding, position);
+        convertHeader(getDataItem(position), binding, position);
         binding.executePendingBindings();
     }
 

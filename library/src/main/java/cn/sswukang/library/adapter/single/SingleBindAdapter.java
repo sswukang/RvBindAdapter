@@ -29,36 +29,37 @@ public abstract class SingleBindAdapter<T, B extends ViewDataBinding>
     }
 
     @Override
-    public final void convert(T t, B binding, BaseBindViewHolder<B> holder) {
-        convert(t, binding);
+    public final void convert(int position, T t, B binding, BaseBindViewHolder<B> holder) {
+        convert(position, t, binding);
     }
 
     @Override
     public final void onItemClick(View itemView, int position, @LayoutRes int layoutId) {
-        onItemClick(itemView, getItem(position), position);
+        onItemClick(itemView, position, getDataItem(position));
     }
 
     @Override
     public final boolean onItemLongClick(View itemView, int position, @LayoutRes int layoutId) {
-        return onItemLongClick(itemView, getItem(position), position);
+        return onItemLongClick(itemView, position, getDataItem(position));
     }
 
     /**
      * 实现该抽象方法，完成数据的绑定。
      *
-     * @param t       每个 position 对应的封装
-     * @param binding {@link B}
+     * @param position 当前item的position（无限轮播时会超过数据总个数）
+     * @param t        position 对应的对象（无限轮播时为对数据总个数取余后对应的对象）
+     * @param binding  {@link B}
      */
-    public abstract void convert(T t, B binding);
+    public abstract void convert(int position, T t, B binding);
 
     /**
      * item的单击事件
      *
      * @param itemView 点击的item {@link BaseBindViewHolder#itemView}
-     * @param t        每个 position 对应的封装
-     * @param position 当前行数，采用{@link BaseBindViewHolder#getLayoutPosition()}
+     * @param position 当前点击的position，采用{@link BaseBindViewHolder#getLayoutPosition()}（无限轮播时会超过数据总个数）
+     * @param t        position 对应的对象（无限轮播时为对数据总个数取余后对应的对象）
      */
-    public void onItemClick(View itemView, T t, int position) {
+    public void onItemClick(View itemView, int position, T t) {
         // do something...
     }
 
@@ -66,11 +67,11 @@ public abstract class SingleBindAdapter<T, B extends ViewDataBinding>
      * item的长按事件
      *
      * @param itemView 点击的item {@link BaseBindViewHolder#itemView}
-     * @param t        每个 position 对应的封装
-     * @param position 当前行数，采用{@link BaseBindViewHolder#getLayoutPosition()}
+     * @param position 当前点击的position，采用{@link BaseBindViewHolder#getLayoutPosition()}（无限轮播时会超过数据总个数）
+     * @param t        position 对应的对象（无限轮播时为对数据总个数取余后对应的对象）
      * @return 长按事件是否被消费
      */
-    public boolean onItemLongClick(View itemView, T t, int position) {
+    public boolean onItemLongClick(View itemView, int position, T t) {
         return false;
     }
 }

@@ -1,5 +1,6 @@
 package cn.sswukang.example.view;
 
+import android.annotation.SuppressLint;
 import android.support.v7.view.menu.MenuAdapter;
 import android.support.v7.view.menu.MenuBuilder;
 import android.support.v7.widget.ListPopupWindow;
@@ -53,6 +54,7 @@ public class MainActivity extends BaseActivity<MainActivityBinding, MainViewMode
         getDataBinding().setAdapter(fragmentAdapter);
     }
 
+    @SuppressLint("RestrictedApi")
     private void initLeftMenuPop() {
         MenuBuilder menuBuilder = new MenuBuilder(getContext());
         menuBuilder.setOptionalIconsVisible(true);
@@ -73,6 +75,7 @@ public class MainActivity extends BaseActivity<MainActivityBinding, MainViewMode
         });
     }
 
+    @SuppressLint("RestrictedApi")
     private void initRightMenuPop() {
         MenuBuilder menuBuilder = new MenuBuilder(getContext());
         menuBuilder.setOptionalIconsVisible(true);

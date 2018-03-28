@@ -1,20 +1,15 @@
 apply plugin: 'com.android.application'
-apply plugin: 'me.tatarka.retrolambda'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    compileSdkVersion versions.compileSdk
+    buildToolsVersion versions.buildTools
     defaultConfig {
-        applicationId "cn.sswukang.rvbindadapter"
-        minSdkVersion 17
-        targetSdkVersion 25
-        versionCode 1
-        versionName "1.0.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
-        vectorDrawables {
-            useSupportLibrary = true
-        }
+		applicationId "cn.sswukang.rvbindadapter"
+        minSdkVersion versions.minSdk
+        targetSdkVersion versions.targetSdk
+        versionCode verCode
+        versionName verName
+        testInstrumentationRunner deps.support.test.instrumentationRunner
     }
     buildTypes {
         release {
@@ -23,20 +18,21 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility versions.javaVersion
+        targetCompatibility versions.javaVersion
     }
-    dataBinding {
+	dataBinding {
         enabled = true
     }
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    provided 'com.google.code.gson:gson:2.7'
-    testCompile 'junit:junit:4.12'
-    compile project(':library')
+    implementation project(':library')
+
+    testImplementation deps.test.junit
+    androidTestImplementation deps.support.test.runner
+    androidTestImplementation deps.support.test.espresso
+    implementation deps.support.appcompat
+    implementation deps.support.design
+    implementation deps.gson
 }

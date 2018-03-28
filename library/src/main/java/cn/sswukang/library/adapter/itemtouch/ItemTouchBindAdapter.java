@@ -4,6 +4,7 @@ import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.graphics.Color;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,6 @@ import java.util.Collections;
 import java.util.List;
 
 import cn.sswukang.library.adapter.base.BaseBindAdapter;
-import cn.sswukang.library.adapter.base.BaseBindViewHolder;
 
 
 /**
@@ -34,27 +34,36 @@ public abstract class ItemTouchBindAdapter<T, B extends ViewDataBinding>
         super(layoutId, data);
     }
 
+    /**
+     * @return 设置item总个数（不允许设置无限轮播）
+     */
+    @Override
+    public final int getItemCount() {
+        return super.getItemCount();
+    }
+
+    @NonNull
     @SuppressWarnings("unchecked")
     @Override
-    public final ItemTouchBindViewHolder<B> onCreateViewHolder(ViewGroup parent, int viewType) {
+    public final ItemTouchBindViewHolder<B> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         B binding = DataBindingUtil.inflate(inflater, viewType, parent, false);
         return ItemTouchBindViewHolder.get(binding, viewType, this, this);
     }
 
     @Override
-    public final void convert(T t, B binding, ItemTouchBindViewHolder<B> holder) {
-        convert(t, binding);
+    public final void convert(int position, T t, B binding, ItemTouchBindViewHolder<B> holder) {
+        convert(position, t, binding);
     }
 
     @Override
     public final void onItemClick(View itemView, int position, @LayoutRes int layoutId) {
-        onItemClick(itemView, getItem(position), position);
+        onItemClick(itemView, position, getDataItem(position));
     }
 
     @Override
     public final boolean onItemLongClick(View itemView, int position, @LayoutRes int layoutId) {
-        return onItemLongClick(itemView, getItem(position), position);
+        return onItemLongClick(itemView, position, getDataItem(position));
     }
 
     @Override
@@ -77,19 +86,20 @@ public abstract class ItemTouchBindAdapter<T, B extends ViewDataBinding>
     /**
      * 实现该抽象方法，完成数据的绑定。
      *
-     * @param t       每个 position 对应的封装
-     * @param binding {@link B}
+     * @param position 当前item的position
+     * @param t        position 对应的对象
+     * @param binding  {@link B}
      */
-    public abstract void convert(T t, B binding);
+    public abstract void convert(int position, T t, B binding);
 
     /**
      * item的单击事件
      *
      * @param itemView 点击的item {@link ItemTouchBindViewHolder#itemView}
-     * @param t        每个 position 对应的封装
-     * @param position 当前行数，采用{@link BaseBindViewHolder#getLayoutPosition()}
+     * @param position 当前点击的position，采用{@link ItemTouchBindViewHolder#getLayoutPosition()}
+     * @param t        position 对应的对象
      */
-    public void onItemClick(View itemView, T t, int position) {
+    public void onItemClick(View itemView, int position, T t) {
         // do something...
     }
 
@@ -97,18 +107,17 @@ public abstract class ItemTouchBindAdapter<T, B extends ViewDataBinding>
      * item的长按事件
      *
      * @param itemView 点击的item {@link ItemTouchBindViewHolder#itemView}
-     * @param t        每个 position 对应的封装
-     * @param position 当前行数，采用{@link BaseBindViewHolder#getLayoutPosition()}
+     * @param position 当前点击的position，采用{@link ItemTouchBindViewHolder#getLayoutPosition()}
+     * @param t        position 对应的对象
      * @return 长按事件是否被消费
      */
-    public boolean onItemLongClick(View itemView, T t, int position) {
+    public boolean onItemLongClick(View itemView, int position, T t) {
         return false;
     }
 
     public void onItemPressed(View itemView) {
         itemView.setBackgroundColor(Color.GRAY);
     }
-
 
     public void onItemClear(View itemView) {
         itemView.setBackgroundColor(Color.TRANSPARENT);
