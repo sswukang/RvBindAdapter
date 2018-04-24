@@ -16,8 +16,8 @@ public class BaseActivityViewModel<A extends BaseActivity, B extends ViewDataBin
     private B mDataBinding;
 
     @SuppressWarnings("unchecked")
-    public final void setView(BaseActivity activity) {
-        mActivity = (A) activity;
+    public final void setView(A activity) {
+        mActivity = activity;
         mDataBinding = (B) activity.getDataBinding();
     }
 

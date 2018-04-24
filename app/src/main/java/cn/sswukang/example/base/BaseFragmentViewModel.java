@@ -16,8 +16,8 @@ public class BaseFragmentViewModel<F extends BaseFragment, B extends ViewDataBin
     private B mDataBinding;
 
     @SuppressWarnings("unchecked")
-    public final void setView(BaseFragment fragment) {
-        mFragment = (F) fragment;
+    public final void setView(F fragment) {
+        mFragment = fragment;
         mDataBinding = (B) fragment.getDataBinding();
     }
 
