@@ -3,8 +3,10 @@ package cn.sswukang.library.adapter.itemtouch;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.graphics.Color;
+import android.support.annotation.ColorInt;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,12 +28,23 @@ import cn.sswukang.library.adapter.base.BaseBindAdapter;
 public abstract class ItemTouchBindAdapter<T, B extends ViewDataBinding>
         extends BaseBindAdapter<T, B, ItemTouchBindViewHolder<B>>
         implements ItemTouchCallBack.OnMoveSwipeListener, ItemTouchBindViewHolder.ItemViewStateChangeListener {
+    @ColorInt
+    private int pressedColor;
+    @ColorInt
+    private int clearColor;
+
     /**
      * @param layoutId adapter需要的布局资源id
      * @param data     数据
      */
     protected ItemTouchBindAdapter(@LayoutRes int layoutId, List<T> data) {
+        this(layoutId, data, Color.GRAY, Color.TRANSPARENT);
+    }
+
+    protected ItemTouchBindAdapter(@LayoutRes int layoutId, List<T> data, @ColorInt int pressedColor, @ColorInt int clearColor) {
         super(layoutId, data);
+        this.pressedColor = pressedColor;
+        this.clearColor = clearColor;
     }
 
     /**
@@ -39,11 +52,10 @@ public abstract class ItemTouchBindAdapter<T, B extends ViewDataBinding>
      */
     @Override
     public final int getItemCount() {
-        return super.getItemCount();
+        return getDataSize();
     }
 
     @NonNull
-    @SuppressWarnings("unchecked")
     @Override
     public final ItemTouchBindViewHolder<B> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
@@ -52,7 +64,7 @@ public abstract class ItemTouchBindAdapter<T, B extends ViewDataBinding>
     }
 
     @Override
-    public final void convert(int position, T t, B binding, ItemTouchBindViewHolder<B> holder) {
+    public final void convert(int position, @Nullable T t, B binding, ItemTouchBindViewHolder<B> holder) {
         convert(position, t, binding);
     }
 
@@ -90,7 +102,7 @@ public abstract class ItemTouchBindAdapter<T, B extends ViewDataBinding>
      * @param t        position 对应的对象
      * @param binding  {@link B}
      */
-    public abstract void convert(int position, T t, B binding);
+    public abstract void convert(int position, @Nullable T t, B binding);
 
     /**
      * item的单击事件
@@ -99,7 +111,7 @@ public abstract class ItemTouchBindAdapter<T, B extends ViewDataBinding>
      * @param position 当前点击的position，采用{@link ItemTouchBindViewHolder#getLayoutPosition()}
      * @param t        position 对应的对象
      */
-    public void onItemClick(View itemView, int position, T t) {
+    public void onItemClick(View itemView, int position, @Nullable T t) {
         // do something...
     }
 
@@ -111,15 +123,15 @@ public abstract class ItemTouchBindAdapter<T, B extends ViewDataBinding>
      * @param t        position 对应的对象
      * @return 长按事件是否被消费
      */
-    public boolean onItemLongClick(View itemView, int position, T t) {
+    public boolean onItemLongClick(View itemView, int position, @Nullable T t) {
         return false;
     }
 
     public void onItemPressed(View itemView) {
-        itemView.setBackgroundColor(Color.GRAY);
+        itemView.setBackgroundColor(pressedColor);
     }
 
     public void onItemClear(View itemView) {
-        itemView.setBackgroundColor(Color.TRANSPARENT);
+        itemView.setBackgroundColor(clearColor);
     }
 }

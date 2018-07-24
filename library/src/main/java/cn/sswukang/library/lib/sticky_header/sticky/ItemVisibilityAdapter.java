@@ -12,7 +12,6 @@ package cn.sswukang.library.lib.sticky_header.sticky;
  * interface as a second argment StickyRecyclerHeadersDecoration's constructor.
  */
 interface ItemVisibilityAdapter {
-
     /**
      * Return true the specified adapter position is visible, false otherwise
      * <p>

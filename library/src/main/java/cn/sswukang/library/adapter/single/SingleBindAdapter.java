@@ -2,6 +2,7 @@ package cn.sswukang.library.adapter.single;
 
 import android.databinding.ViewDataBinding;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.Nullable;
 import android.view.View;
 
 import java.util.List;
@@ -29,7 +30,7 @@ public abstract class SingleBindAdapter<T, B extends ViewDataBinding>
     }
 
     @Override
-    public final void convert(int position, T t, B binding, BaseBindViewHolder<B> holder) {
+    public final void convert(int position, @Nullable T t, B binding, BaseBindViewHolder<B> holder) {
         convert(position, t, binding);
     }
 
@@ -50,7 +51,7 @@ public abstract class SingleBindAdapter<T, B extends ViewDataBinding>
      * @param t        position 对应的对象（无限轮播时为对数据总个数取余后对应的对象）
      * @param binding  {@link B}
      */
-    public abstract void convert(int position, T t, B binding);
+    public abstract void convert(int position, @Nullable T t, B binding);
 
     /**
      * item的单击事件
@@ -59,7 +60,7 @@ public abstract class SingleBindAdapter<T, B extends ViewDataBinding>
      * @param position 当前点击的position，采用{@link BaseBindViewHolder#getLayoutPosition()}（无限轮播时会超过数据总个数）
      * @param t        position 对应的对象（无限轮播时为对数据总个数取余后对应的对象）
      */
-    public void onItemClick(View itemView, int position, T t) {
+    public void onItemClick(View itemView, int position, @Nullable T t) {
         // do something...
     }
 
@@ -71,7 +72,7 @@ public abstract class SingleBindAdapter<T, B extends ViewDataBinding>
      * @param t        position 对应的对象（无限轮播时为对数据总个数取余后对应的对象）
      * @return 长按事件是否被消费
      */
-    public boolean onItemLongClick(View itemView, int position, T t) {
+    public boolean onItemLongClick(View itemView, int position, @Nullable T t) {
         return false;
     }
 }

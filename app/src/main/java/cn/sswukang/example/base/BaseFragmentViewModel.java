@@ -3,22 +3,20 @@ package cn.sswukang.example.base;
 import android.databinding.ViewDataBinding;
 
 /**
- * ViewModel Fragment 基类
+ * Fragment ViewModel 基类
  *
  * @author sswukang on 2017/2/22 16:05
  * @version 1.0
  */
-public class BaseFragmentViewModel<F extends BaseFragment, B extends ViewDataBinding> {
-
+public class BaseFragmentViewModel<F extends BaseFragment<B, ?, ?>, B extends ViewDataBinding> {
     // fragment
     private F mFragment;
     // 视图绑定对象
     private B mDataBinding;
 
-    @SuppressWarnings("unchecked")
     public final void setView(F fragment) {
         mFragment = fragment;
-        mDataBinding = (B) fragment.getDataBinding();
+        mDataBinding = fragment.getDataBinding();
     }
 
     public final F getFragment() {

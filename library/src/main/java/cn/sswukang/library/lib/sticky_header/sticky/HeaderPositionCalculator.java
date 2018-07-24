@@ -15,9 +15,9 @@ import cn.sswukang.library.lib.sticky_header.util.OrientationProvider;
 /**
  * Calculates the position and location of header views
  */
-class HeaderPositionCalculator {
+class HeaderPositionCalculator<VH extends RecyclerView.ViewHolder> {
 
-    private final StickyRecyclerHeadersAdapter mAdapter;
+    private final StickyRecyclerHeadersAdapter<VH> mAdapter;
     private final OrientationProvider mOrientationProvider;
     private final HeaderProvider mHeaderProvider;
     private final DimensionCalculator mDimensionCalculator;
@@ -29,7 +29,7 @@ class HeaderPositionCalculator {
     private final Rect mTempRect1 = new Rect();
     private final Rect mTempRect2 = new Rect();
 
-    HeaderPositionCalculator(StickyRecyclerHeadersAdapter adapter, HeaderProvider headerProvider,
+    HeaderPositionCalculator(StickyRecyclerHeadersAdapter<VH> adapter, HeaderProvider headerProvider,
                              OrientationProvider orientationProvider, DimensionCalculator dimensionCalculator) {
         mAdapter = adapter;
         mHeaderProvider = headerProvider;
@@ -154,15 +154,11 @@ class HeaderPositionCalculator {
                 if (mOrientationProvider.getOrientation(recyclerView) == LinearLayoutManager.VERTICAL) {
                     int topOfNextHeader = viewAfterHeader.getTop() - mTempRect1.bottom - nextHeader.getHeight() - mTempRect1.top;
                     int bottomOfThisHeader = recyclerView.getPaddingTop() + stickyHeader.getBottom() + mTempRect2.top + mTempRect2.bottom;
-                    if (topOfNextHeader < bottomOfThisHeader) {
-                        return true;
-                    }
+                    return topOfNextHeader < bottomOfThisHeader;
                 } else {
                     int leftOfNextHeader = viewAfterHeader.getLeft() - mTempRect1.right - nextHeader.getWidth() - mTempRect1.left;
                     int rightOfThisHeader = recyclerView.getPaddingLeft() + stickyHeader.getRight() + mTempRect2.left + mTempRect2.right;
-                    if (leftOfNextHeader < rightOfThisHeader) {
-                        return true;
-                    }
+                    return leftOfNextHeader < rightOfThisHeader;
                 }
             }
         }
@@ -231,18 +227,12 @@ class HeaderPositionCalculator {
         if (orientation == LinearLayoutManager.VERTICAL) {
             int itemTop = item.getTop() - layoutParams.topMargin;
             int headerBottom = getListTop(parent) + header.getBottom() + mTempRect1.bottom + mTempRect1.top;
-            if (itemTop >= headerBottom) {
-                return false;
-            }
+            return itemTop < headerBottom;
         } else {
             int itemLeft = item.getLeft() - layoutParams.leftMargin;
             int headerRight = getListLeft(parent) + header.getRight() + mTempRect1.right + mTempRect1.left;
-            if (itemLeft >= headerRight) {
-                return false;
-            }
+            return itemLeft < headerRight;
         }
-
-        return true;
     }
 
     private int getListTop(RecyclerView view) {

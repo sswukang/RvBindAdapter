@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
+import cn.sswukang.library.listener.RecyclerClickListener;
+
 /**
  * RecyclerView基础Adapter。(DataBinding模式)
  *
@@ -23,7 +25,7 @@ import java.util.List;
  * @version 1.0
  */
 public abstract class BaseBindAdapter<T, B extends ViewDataBinding, H extends BaseBindViewHolder<B>>
-        extends RecyclerView.Adapter<H> implements BaseBindViewHolder.RecyclerClickListener {
+        extends RecyclerView.Adapter<H> implements RecyclerClickListener {
 
     private Context context;
     @LayoutRes
@@ -51,7 +53,7 @@ public abstract class BaseBindAdapter<T, B extends ViewDataBinding, H extends Ba
     /**
      * @return 获得item数据总个数
      */
-    public final int getDataSize() {
+    protected final int getDataSize() {
         List<T> data = getData();
         if (data != null)
             return data.size();
@@ -131,7 +133,7 @@ public abstract class BaseBindAdapter<T, B extends ViewDataBinding, H extends Ba
      * @param binding  {@link B}
      * @param holder   {@link H}
      */
-    public abstract void convert(int position, T t, B binding, H holder);
+    public abstract void convert(int position, @Nullable T t, B binding, H holder);
 
     /**
      * 单击事件

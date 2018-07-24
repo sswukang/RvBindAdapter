@@ -6,10 +6,10 @@ import android.view.MotionEvent;
 import android.view.SoundEffectConstants;
 import android.view.View;
 
-public class StickyRecyclerHeadersTouchListener implements RecyclerView.OnItemTouchListener {
+public class StickyRecyclerHeadersTouchListener<VH extends RecyclerView.ViewHolder> implements RecyclerView.OnItemTouchListener {
     private final GestureDetector mTapDetector;
     private final RecyclerView mRecyclerView;
-    private final StickyRecyclerHeadersDecoration mDecor;
+    private final StickyRecyclerHeadersDecoration<VH> mDecor;
     private OnHeaderClickListener mOnHeaderClickListener;
 
     public interface OnHeaderClickListener {
@@ -17,7 +17,7 @@ public class StickyRecyclerHeadersTouchListener implements RecyclerView.OnItemTo
     }
 
     public StickyRecyclerHeadersTouchListener(final RecyclerView recyclerView,
-                                              final StickyRecyclerHeadersDecoration decor) {
+                                              final StickyRecyclerHeadersDecoration<VH> decor) {
         mTapDetector = new GestureDetector(recyclerView.getContext(), new SingleTapDetector());
         mRecyclerView = recyclerView;
         mDecor = decor;
@@ -32,7 +32,6 @@ public class StickyRecyclerHeadersTouchListener implements RecyclerView.OnItemTo
                     " requires a " + StickyRecyclerHeadersAdapter.class.getSimpleName());
         }
     }
-
 
     public void setOnHeaderClickListener(OnHeaderClickListener listener) {
         mOnHeaderClickListener = listener;

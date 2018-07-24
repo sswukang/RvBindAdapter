@@ -2,6 +2,7 @@ package cn.sswukang.example.util;
 
 import android.databinding.BindingAdapter;
 import android.databinding.BindingConversion;
+import android.databinding.ViewDataBinding;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.ColorInt;
@@ -16,7 +17,7 @@ import cn.sswukang.library.lib.side.SideAndStickyHeaderRecyclerView;
 import cn.sswukang.library.lib.sticky_header.sticky.StickyRecyclerHeadersDecoration;
 
 /**
- * DataBinding工具类
+ * DataBinding 工具类
  *
  * @author sswukang on 2017/3/1 11:08
  * @version 1.0
@@ -75,7 +76,7 @@ public class BindingUtils {
      * 数据绑定方式执行{@link RecyclerView#setAdapter(RecyclerView.Adapter)}
      */
     @BindingAdapter("adapter")
-    public static void setAdapter(RecyclerView view, RecyclerView.Adapter adapter) {
+    public static <VH extends RecyclerView.ViewHolder> void setAdapter(RecyclerView view, RecyclerView.Adapter<VH> adapter) {
         view.setAdapter(adapter);
     }
 
@@ -89,10 +90,10 @@ public class BindingUtils {
 
     /**
      * 数据绑定方式执行{@link RecyclerView#addItemDecoration(RecyclerView.ItemDecoration)}
-     * （注：参数为{@link StickyRecyclerHeadersDecoration}）
+     * （注：参数为{@link StickyRecyclerHeadersDecoration<VH>}）
      */
     @BindingAdapter("stickyDecoration")
-    public static void setStickyDecoration(RecyclerView view, StickyRecyclerHeadersDecoration decoration) {
+    public static <VH extends RecyclerView.ViewHolder> void setStickyDecoration(RecyclerView view, StickyRecyclerHeadersDecoration<VH> decoration) {
         view.addItemDecoration(decoration);
     }
 
@@ -100,7 +101,7 @@ public class BindingUtils {
      * 数据绑定方式执行{@link SideAndStickyHeaderRecyclerView#setAdapter(StickyHeaderBindAdapter)}
      */
     @BindingAdapter("adapter")
-    public static void setAdapter(SideAndStickyHeaderRecyclerView view, StickyHeaderBindAdapter adapter) {
+    public static <T, SB extends ViewDataBinding, B extends ViewDataBinding> void setAdapter(SideAndStickyHeaderRecyclerView view, StickyHeaderBindAdapter<T, SB, B> adapter) {
         view.setAdapter(adapter);
     }
 

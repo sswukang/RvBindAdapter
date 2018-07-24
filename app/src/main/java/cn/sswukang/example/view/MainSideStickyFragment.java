@@ -1,5 +1,6 @@
 package cn.sswukang.example.view;
 
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.DividerItemDecoration;
 import android.view.View;
@@ -8,9 +9,9 @@ import java.util.List;
 
 import cn.sswukang.example.R;
 import cn.sswukang.example.base.BaseFragment;
-import cn.sswukang.example.databinding.MainSideStickyFragmentBinding;
-import cn.sswukang.example.databinding.StickyAdapterContentBinding;
-import cn.sswukang.example.databinding.StickyAdapterTitleBinding;
+import cn.sswukang.example.databinding.FragmentMainSideStickyBinding;
+import cn.sswukang.example.databinding.RvStickyContentBinding;
+import cn.sswukang.example.databinding.RvStickyTitleBinding;
 import cn.sswukang.example.manager.CountryManager;
 import cn.sswukang.example.model.Country;
 import cn.sswukang.example.viewmodel.MainSideStickyViewModel;
@@ -22,9 +23,8 @@ import cn.sswukang.library.adapter.sticky.StickyHeaderBindAdapter;
  * @author sswukang on 2017/3/7 11:09
  * @version 1.0
  */
-public class MainSideStickyFragment extends BaseFragment<MainSideStickyFragmentBinding, MainSideStickyViewModel, MainActivity> {
-
-    private StickyHeaderBindAdapter<Country, StickyAdapterTitleBinding, StickyAdapterContentBinding> adapter;
+public class MainSideStickyFragment extends BaseFragment<FragmentMainSideStickyBinding, MainSideStickyViewModel, MainActivity> {
+    private StickyHeaderBindAdapter<Country, RvStickyTitleBinding, RvStickyContentBinding> adapter;
 
     @Override
     public int getLayoutId() {
@@ -36,7 +36,7 @@ public class MainSideStickyFragment extends BaseFragment<MainSideStickyFragmentB
         // ViewModel数据绑定
         getDataBinding().setMainSideSticky(getViewModel());
         // Adapter数据绑定
-        adapter = new StickyHeaderBindAdapter<Country, StickyAdapterTitleBinding, StickyAdapterContentBinding>(
+        adapter = new StickyHeaderBindAdapter<Country, RvStickyTitleBinding, RvStickyContentBinding>(
                 R.layout.rv_sticky_title, R.layout.rv_sticky_content, CountryManager.getInstance().getCountryList()) {
             @Override
             public int setHeaderHeight() {
@@ -44,24 +44,29 @@ public class MainSideStickyFragment extends BaseFragment<MainSideStickyFragmentB
             }
 
             @Override
-            public long getHeaderId(int position, Country country) {
-                return country.getCountryNameEn().charAt(0);
+            public long getHeaderId(int position, @Nullable Country country) {
+                if (country != null) {
+                    return country.getCountryNameEn().charAt(0);
+                } else {
+                    return getItemId(position);
+                }
             }
 
             @Override
-            public void convertHeader(int position, Country country, StickyAdapterTitleBinding binding) {
+            public void convertHeader(int position, @Nullable Country country, RvStickyTitleBinding binding) {
                 // 粘性头部数据绑定
                 binding.setCountry(country);
             }
 
             @Override
-            public void convert(int position, Country country, StickyAdapterContentBinding binding) {
+            public void convert(int position, @Nullable Country country, RvStickyContentBinding binding) {
                 // 内容数据绑定
                 binding.setCountry(country);
             }
 
             @Override
-            public void onItemClick(View itemView, int position, Country country) {
+            public void onItemClick(View itemView, int position, @Nullable Country country) {
+                if (null == country) return;
                 Snackbar.make(itemView, country.toString(), Snackbar.LENGTH_SHORT).show();
                 // 点击改变opToolbar内容
                 getCreatorActivity().getViewModel().nameCn.set(country.getCountryNameCn());

@@ -5,6 +5,7 @@ import android.support.annotation.LayoutRes;
 import android.view.View;
 
 import cn.sswukang.library.adapter.base.BaseBindViewHolder;
+import cn.sswukang.library.listener.RecyclerClickListener;
 
 
 /**
@@ -33,11 +34,10 @@ public class ItemTouchBindViewHolder<B extends ViewDataBinding>
      * @param listener      {@link ItemViewStateChangeListener}
      * @return {@link ItemTouchBindViewHolder}
      */
-    @SuppressWarnings("unchecked")
-    public static <B extends ViewDataBinding> ItemTouchBindViewHolder get(
+    public static <B extends ViewDataBinding> ItemTouchBindViewHolder<B> get(
             B binding, @LayoutRes int layoutId, RecyclerClickListener clickListener,
             ItemViewStateChangeListener listener) {
-        return new ItemTouchBindViewHolder(binding, layoutId, clickListener, listener);
+        return new ItemTouchBindViewHolder<>(binding, layoutId, clickListener, listener);
     }
 
     @Override

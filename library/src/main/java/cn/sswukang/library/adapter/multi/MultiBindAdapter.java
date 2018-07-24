@@ -2,6 +2,7 @@ package cn.sswukang.library.adapter.multi;
 
 import android.databinding.ViewDataBinding;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.Nullable;
 import android.view.View;
 
 import java.util.List;
@@ -40,7 +41,7 @@ public abstract class MultiBindAdapter<T>
     }
 
     @Override
-    public final void convert(int position, T t, ViewDataBinding binding, BaseBindViewHolder<ViewDataBinding> holder) {
+    public final void convert(int position, @Nullable T t, ViewDataBinding binding, BaseBindViewHolder<ViewDataBinding> holder) {
         convert(position, t, binding, holder.getLayoutId());
     }
 
@@ -61,7 +62,7 @@ public abstract class MultiBindAdapter<T>
      * @param t        position 对应的对象（无限轮播时为对数据总个数取余后对应的对象）
      * @return layout id
      */
-    public abstract int getItemLayoutId(int position, T t);
+    public abstract int getItemLayoutId(int position, @Nullable T t);
 
     /**
      * 实现该抽象方法，完成数据的填充。
@@ -71,7 +72,7 @@ public abstract class MultiBindAdapter<T>
      * @param binding  {@link ViewDataBinding}
      * @param layoutId 布局id (用于区别不同item)
      */
-    public abstract void convert(int position, T t, ViewDataBinding binding, @LayoutRes int layoutId);
+    public abstract void convert(int position, @Nullable T t, ViewDataBinding binding, @LayoutRes int layoutId);
 
     /**
      * item的单击事件
@@ -81,7 +82,7 @@ public abstract class MultiBindAdapter<T>
      * @param t        position 对应的对象（无限轮播时为对数据总个数取余后对应的对象）
      * @param layoutId 布局id (用于区别不同item)
      */
-    public void onItemClick(View itemView, int position, T t, @LayoutRes int layoutId) {
+    public void onItemClick(View itemView, int position, @Nullable T t, @LayoutRes int layoutId) {
         // do something...
     }
 
@@ -94,7 +95,7 @@ public abstract class MultiBindAdapter<T>
      * @param layoutId 布局id (用于区别不同item)
      * @return 长按事件是否被消费
      */
-    public boolean onItemLongClick(View itemView, int position, T t, @LayoutRes int layoutId) {
+    public boolean onItemLongClick(View itemView, int position, @Nullable T t, @LayoutRes int layoutId) {
         return false;
     }
 

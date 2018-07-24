@@ -2,6 +2,7 @@ package cn.sswukang.library.lib.side;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.databinding.ViewDataBinding;
 import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.v7.widget.LinearLayoutManager;
@@ -61,7 +62,8 @@ public class SideAndStickyHeaderRecyclerView extends FrameLayout {
     }
 
     public SideAndStickyHeaderRecyclerView(Context context, AttributeSet attrs, int defStyleAttr) {
-        this(context, attrs, defStyleAttr, 0);
+        super(context, attrs, defStyleAttr);
+        init();
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -89,11 +91,11 @@ public class SideAndStickyHeaderRecyclerView extends FrameLayout {
      *
      * @param adapter {@link StickyHeaderBindAdapter}
      */
-    public void setAdapter(final StickyHeaderBindAdapter adapter) {
+    public <T, SB extends ViewDataBinding, B extends ViewDataBinding> void setAdapter(final StickyHeaderBindAdapter<T, SB, B> adapter) {
         if (linearLayoutManager == null)
             linearLayoutManager = new LinearLayoutManager(getContext());
         if (decoration == null)
-            decoration = new StickyRecyclerHeadersDecoration(adapter);
+            decoration = new StickyRecyclerHeadersDecoration<>(adapter);
         if (onScrollListener == null)
             onScrollListener = new RecyclerView.OnScrollListener() {
                 @Override

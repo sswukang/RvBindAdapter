@@ -2,6 +2,7 @@ package cn.sswukang.example.view;
 
 import android.databinding.ViewDataBinding;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
@@ -11,21 +12,21 @@ import java.util.List;
 
 import cn.sswukang.example.R;
 import cn.sswukang.example.base.BaseFragment;
-import cn.sswukang.example.databinding.MainMultiFragmentBinding;
-import cn.sswukang.example.databinding.MultiAdapterContentBinding;
-import cn.sswukang.example.databinding.MultiAdapterTitleBinding;
+import cn.sswukang.example.databinding.FragmentMainMultiBinding;
+import cn.sswukang.example.databinding.RvMultiContentBinding;
+import cn.sswukang.example.databinding.RvMultiTitleBinding;
 import cn.sswukang.example.manager.CountryManager;
 import cn.sswukang.example.model.Country;
 import cn.sswukang.example.viewmodel.MainMultiViewModel;
 import cn.sswukang.library.adapter.multi.MultiBindAdapter;
 
 /**
- * multi Fragment
+ * Multi Fragment
  *
  * @author sswukang on 2017/3/1 15:37
  * @version 1.0
  */
-public class MainMultiFragment extends BaseFragment<MainMultiFragmentBinding, MainMultiViewModel, MainActivity> {
+public class MainMultiFragment extends BaseFragment<FragmentMainMultiBinding, MainMultiViewModel, MainActivity> {
 
     private MultiBindAdapter<Country> adapter;
 
@@ -48,34 +49,35 @@ public class MainMultiFragment extends BaseFragment<MainMultiFragmentBinding, Ma
         // Adapter数据绑定
         adapter = new MultiBindAdapter<Country>(list) {
             @Override
-            public int getItemLayoutId(int position, Country country) {
+            public int getItemLayoutId(int position, @Nullable Country country) {
                 // 得到每个类型item的布局id
                 return position < getItemCount() - CountryManager.getInstance().getListSize() ?
                         R.layout.rv_multi_title : R.layout.rv_multi_content;
             }
 
             @Override
-            public void convert(int position, Country country, ViewDataBinding binding, @LayoutRes int layoutId) {
+            public void convert(int position, @Nullable Country country, ViewDataBinding binding, @LayoutRes int layoutId) {
                 // adapter数据绑定
                 switch (layoutId) {
                     case R.layout.rv_multi_title:
-                        MultiAdapterTitleBinding titleBinding = getItemBinding(binding);
+                        RvMultiTitleBinding titleBinding = getItemBinding(binding);
                         titleBinding.setCountry(country);
                         break;
                     case R.layout.rv_multi_content:
-                        MultiAdapterContentBinding contentBinding = getItemBinding(binding);
+                        RvMultiContentBinding contentBinding = getItemBinding(binding);
                         contentBinding.setCountry(country);
                         break;
                 }
             }
 
             @Override
-            public void onItemClick(View itemView, int position, Country country, @LayoutRes int layoutId) {
+            public void onItemClick(View itemView, int position, @Nullable Country country, @LayoutRes int layoutId) {
                 switch (layoutId) {
                     case R.layout.rv_multi_title:
                         Snackbar.make(itemView, "MultiAdapter Title Item.", Snackbar.LENGTH_SHORT).show();
                         break;
                     case R.layout.rv_multi_content:
+                        if (null == country) return;
                         Snackbar.make(itemView, country.toString(), Snackbar.LENGTH_SHORT).show();
                         // 点击改变opToolbar内容
                         getCreatorActivity().getViewModel().nameCn.set(country.getCountryNameCn());

@@ -6,6 +6,9 @@ import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import cn.sswukang.library.listener.DebouncingOnClickListener;
+import cn.sswukang.library.listener.RecyclerClickListener;
+
 
 /**
  * 自定义 RecyclerView 的 ViewHolder (DataBinding模式)
@@ -14,39 +17,6 @@ import android.view.View;
  * @version 1.0
  */
 public class BaseBindViewHolder<B extends ViewDataBinding> extends RecyclerView.ViewHolder {
-
-    // 单击防抖动
-    private static abstract class DebouncingOnClickListener implements View.OnClickListener {
-        private static boolean enabled = true;
-
-        private static final Runnable ENABLE_AGAIN = () -> enabled = true;
-
-        @Override
-        public final void onClick(View v) {
-            if (enabled) {
-                enabled = false;
-                v.post(ENABLE_AGAIN);
-                doClick(v);
-            }
-        }
-
-        public abstract void doClick(View v);
-    }
-
-    /**
-     * RecyclerView Item 添加监听接口
-     */
-    protected interface RecyclerClickListener {
-        /**
-         * item 单击事件
-         */
-        void onItemClick(View v, int position, @LayoutRes int layoutId);
-
-        /**
-         * item 长按事件
-         */
-        boolean onItemLongClick(View v, int position, @LayoutRes int layoutId);
-    }
 
     private B binding;
     @LayoutRes
@@ -75,9 +45,8 @@ public class BaseBindViewHolder<B extends ViewDataBinding> extends RecyclerView.
      * @param listener 条目的监听
      * @return {@link BaseBindViewHolder}
      */
-    @SuppressWarnings("unchecked")
-    public static <B extends ViewDataBinding> BaseBindViewHolder get(B binding, @LayoutRes int layoutId, RecyclerClickListener listener) {
-        return new BaseBindViewHolder(binding, layoutId, listener);
+    public static <B extends ViewDataBinding> BaseBindViewHolder<B> get(B binding, @LayoutRes int layoutId, RecyclerClickListener listener) {
+        return new BaseBindViewHolder<>(binding, layoutId, listener);
     }
 
     /**

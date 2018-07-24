@@ -14,7 +14,7 @@ import cn.sswukang.example.R;
 import cn.sswukang.example.base.BaseActivity;
 import cn.sswukang.example.base.BaseFragment;
 import cn.sswukang.example.base.BaseFragmentAdapter;
-import cn.sswukang.example.databinding.MainActivityBinding;
+import cn.sswukang.example.databinding.ActivityMainBinding;
 import cn.sswukang.example.viewmodel.MainViewModel;
 
 /**
@@ -23,8 +23,7 @@ import cn.sswukang.example.viewmodel.MainViewModel;
  * @author sswukang on 2017/2/21 11:57
  * @version 1.0
  */
-public class MainActivity extends BaseActivity<MainActivityBinding, MainViewModel> {
-
+public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewModel> {
     // 左pop
     private ListPopupWindow leftMenuPop;
     // 右pop

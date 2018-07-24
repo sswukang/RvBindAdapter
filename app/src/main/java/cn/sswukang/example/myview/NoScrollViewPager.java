@@ -8,7 +8,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 
 /**
- * 不可手势滑动的ViewPager
+ * 不可手势滑动的 ViewPager
  *
  * @author sswukang on 2016/5/13 11:55
  * @version 1.0

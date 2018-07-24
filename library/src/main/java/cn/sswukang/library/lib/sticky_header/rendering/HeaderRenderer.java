@@ -14,7 +14,6 @@ import cn.sswukang.library.lib.sticky_header.util.OrientationProvider;
  * Responsible for drawing headers to the canvas provided by the item decoration
  */
 public class HeaderRenderer {
-
     private final DimensionCalculator mDimensionCalculator;
     private final OrientationProvider mOrientationProvider;
 
@@ -85,5 +84,4 @@ public class HeaderRenderer {
                     recyclerView.getHeight() - recyclerView.getPaddingBottom() - clipRect.bottom);
         }
     }
-
 }

@@ -5,18 +5,18 @@ import java.util.Collections;
 import java.util.List;
 
 import cn.sswukang.example.base.BaseFragmentViewModel;
-import cn.sswukang.example.databinding.MainStickyFragmentBinding;
+import cn.sswukang.example.databinding.FragmentMainStickyBinding;
 import cn.sswukang.example.manager.CountryManager;
 import cn.sswukang.example.model.Country;
 import cn.sswukang.example.view.MainStickyFragment;
 
 /**
- * Main Sticky Fragment ViewModel
+ * Sticky Fragment ViewModel
  *
  * @author sswukang on 2017/3/2 14:26
  * @version 1.0
  */
-public class MainStickyViewModel extends BaseFragmentViewModel<MainStickyFragment, MainStickyFragmentBinding> {
+public class MainStickyViewModel extends BaseFragmentViewModel<MainStickyFragment, FragmentMainStickyBinding> {
     @Override
     public void asc() {
         // Country 排序

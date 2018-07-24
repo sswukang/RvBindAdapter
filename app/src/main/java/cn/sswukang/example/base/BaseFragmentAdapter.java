@@ -21,8 +21,7 @@ public class BaseFragmentAdapter<T extends BaseFragment> extends FragmentPagerAd
     }
 
     public BaseFragmentAdapter(FragmentManager fm, List<T> fragList, List<CharSequence> fragTags) {
-        super(fm);
-        this.fragList = fragList;
+        this(fm, fragList);
         this.fragTags = fragTags;
 
         if (fragList.size() != fragTags.size())
@@ -45,5 +44,4 @@ public class BaseFragmentAdapter<T extends BaseFragment> extends FragmentPagerAd
             return "";
         return fragTags.get(position);
     }
-
 }

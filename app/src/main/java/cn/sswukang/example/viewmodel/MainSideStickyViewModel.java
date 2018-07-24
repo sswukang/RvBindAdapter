@@ -5,18 +5,18 @@ import java.util.Collections;
 import java.util.List;
 
 import cn.sswukang.example.base.BaseFragmentViewModel;
-import cn.sswukang.example.databinding.MainSideStickyFragmentBinding;
+import cn.sswukang.example.databinding.FragmentMainSideStickyBinding;
 import cn.sswukang.example.manager.CountryManager;
 import cn.sswukang.example.model.Country;
 import cn.sswukang.example.view.MainSideStickyFragment;
 
 /**
- * Main Side Sticky Fragment ViewModel
+ * Side Sticky Fragment ViewModel
  *
  * @author sswukang on 2017/3/7 11:08
  * @version 1.0
  */
-public class MainSideStickyViewModel extends BaseFragmentViewModel<MainSideStickyFragment, MainSideStickyFragmentBinding> {
+public class MainSideStickyViewModel extends BaseFragmentViewModel<MainSideStickyFragment, FragmentMainSideStickyBinding> {
     @Override
     public void initViewModel() {
         asc();

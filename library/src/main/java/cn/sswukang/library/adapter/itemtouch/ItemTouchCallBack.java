@@ -20,7 +20,7 @@ public class ItemTouchCallBack extends ItemTouchHelper.Callback {
         this.listener = listener;
     }
 
-    //设置拖动方向和侧滑方向
+    // 设置拖动方向和侧滑方向
     @Override
     public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
         // GridLayout样式
@@ -38,7 +38,7 @@ public class ItemTouchCallBack extends ItemTouchHelper.Callback {
     // 拖动时调用
     @Override
     public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-        //两个item不是一个类型, 不可以拖拽
+        // 两个item不是一个类型, 不可以拖拽
         if (viewHolder.getItemViewType() != target.getItemViewType()) {
             return false;
         }
@@ -78,7 +78,7 @@ public class ItemTouchCallBack extends ItemTouchHelper.Callback {
 
     @Override
     public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
-        if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {//正在侧滑, 根据位移修改item透明度
+        if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) { // 正在侧滑, 根据位移修改item透明度
             final float alpha = ALPHA_FULL - Math.abs(dX) / viewHolder.itemView.getWidth();
             viewHolder.itemView.setAlpha(alpha);
             viewHolder.itemView.setTranslationX(dX);

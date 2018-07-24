@@ -7,7 +7,6 @@ import android.view.View;
  * Implemented by objects that provide header views for decoration
  */
 public interface HeaderProvider {
-
     /**
      * Will provide a header view for a given position in the RecyclerView
      *

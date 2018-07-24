@@ -4,18 +4,18 @@ import java.util.Collections;
 import java.util.List;
 
 import cn.sswukang.example.base.BaseFragmentViewModel;
-import cn.sswukang.example.databinding.MainSingleFragmentBinding;
+import cn.sswukang.example.databinding.FragmentMainSingleBinding;
 import cn.sswukang.example.manager.CountryManager;
 import cn.sswukang.example.model.Country;
 import cn.sswukang.example.view.MainSingleFragment;
 
 /**
- * Main Single Fragment ViewModel
+ * Single Fragment ViewModel
  *
  * @author sswukang on 2017/2/22 17:08
  * @version 1.0
  */
-public class MainSingleViewModel extends BaseFragmentViewModel<MainSingleFragment, MainSingleFragmentBinding> {
+public class MainSingleViewModel extends BaseFragmentViewModel<MainSingleFragment, FragmentMainSingleBinding> {
     @Override
     public void asc() {
         // Country 排序

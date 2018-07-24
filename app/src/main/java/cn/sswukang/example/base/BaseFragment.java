@@ -14,13 +14,12 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
 /**
- * Fragment基类
+ * Fragment 基类
  *
  * @author sswukang on 2017/2/22 15:30
  * @version 1.0
  */
 public abstract class BaseFragment<B extends ViewDataBinding, M extends BaseFragmentViewModel, T extends BaseActivity> extends Fragment {
-
     // 视图绑定对象
     private B mDataBinding;
     // ViewModel模型对象

@@ -1,12 +1,14 @@
 package cn.sswukang.library.lib.side;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
@@ -24,7 +26,6 @@ import cn.sswukang.library.R;
  * update by sswukang on 2017/2/22 10:53
  *
  * @author gjz on 8/23/2016 17:37
- * @version 1.0
  */
 public class SideBar extends View {
     private final static int DEFAULT_TEXT_SIZE = 14; // sp
@@ -131,6 +132,16 @@ public class SideBar extends View {
 
     public SideBar(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        init(context, attrs);
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public SideBar(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
+        init(context, attrs);
+    }
+
+    private void init(Context context, AttributeSet attrs) {
         mDisplayMetrics = context.getResources().getDisplayMetrics();
 
         if (attrs != null) {
@@ -184,20 +195,15 @@ public class SideBar extends View {
             mBarWidth = Math.max(mBarWidth, mPaint.measureText(indexItem));
         }
 
-        float areaLeft = (mSideBarPosition == POSITION_LEFT) ? 0 : (width - mBarWidth - getPaddingRight());
+        float areaLeft = (mSideBarPosition == POSITION_LEFT) ? 0f : (width - mBarWidth - getPaddingRight());
         float areaRight = (mSideBarPosition == POSITION_LEFT) ? (getPaddingLeft() + areaLeft + mBarWidth) : width;
         float areaTop = height / 2 - mBarHeight / 2;
         float areaBottom = areaTop + mBarHeight;
-        mStartTouchingArea.set(
-                areaLeft,
-                areaTop,
-                areaRight,
-                areaBottom);
+        mStartTouchingArea.set(areaLeft, areaTop, areaRight, areaBottom);
 
         // the baseline Y of the first item' text to draw
         mFirstItemBaseLineY = (height / 2 - mIndexItems.length * mIndexItemHeight / 2)
-                + (mIndexItemHeight / 2 - (fontMetrics.descent - fontMetrics.ascent) / 2)
-                - fontMetrics.ascent;
+                + (mIndexItemHeight / 2 - (fontMetrics.descent - fontMetrics.ascent) / 2) - fontMetrics.ascent;
     }
 
     @Override

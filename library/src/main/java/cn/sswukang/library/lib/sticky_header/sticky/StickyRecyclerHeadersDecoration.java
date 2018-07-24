@@ -14,15 +14,14 @@ import cn.sswukang.library.lib.sticky_header.rendering.HeaderRenderer;
 import cn.sswukang.library.lib.sticky_header.util.LinearLayoutOrientationProvider;
 import cn.sswukang.library.lib.sticky_header.util.OrientationProvider;
 
+public class StickyRecyclerHeadersDecoration<VH extends RecyclerView.ViewHolder> extends RecyclerView.ItemDecoration {
 
-public class StickyRecyclerHeadersDecoration extends RecyclerView.ItemDecoration {
-
-    private final StickyRecyclerHeadersAdapter mAdapter;
+    private final StickyRecyclerHeadersAdapter<VH> mAdapter;
     private final ItemVisibilityAdapter mVisibilityAdapter;
     private final SparseArray<Rect> mHeaderRects = new SparseArray<>();
     private final HeaderProvider mHeaderProvider;
     private final OrientationProvider mOrientationProvider;
-    private final HeaderPositionCalculator mHeaderPositionCalculator;
+    private final HeaderPositionCalculator<VH> mHeaderPositionCalculator;
     private final HeaderRenderer mRenderer;
     private final DimensionCalculator mDimensionCalculator;
 
@@ -33,30 +32,30 @@ public class StickyRecyclerHeadersDecoration extends RecyclerView.ItemDecoration
     private final Rect mTempRect = new Rect();
 
     //  Consider passing in orientation to simplify orientation accounting within calculation
-    public StickyRecyclerHeadersDecoration(StickyRecyclerHeadersAdapter adapter) {
+    public StickyRecyclerHeadersDecoration(StickyRecyclerHeadersAdapter<VH> adapter) {
         this(adapter, null);
     }
 
-    public StickyRecyclerHeadersDecoration(StickyRecyclerHeadersAdapter adapter, ItemVisibilityAdapter visibilityAdapter) {
+    public StickyRecyclerHeadersDecoration(StickyRecyclerHeadersAdapter<VH> adapter, ItemVisibilityAdapter visibilityAdapter) {
         this(adapter, new LinearLayoutOrientationProvider(), new DimensionCalculator(), visibilityAdapter);
     }
 
-    private StickyRecyclerHeadersDecoration(StickyRecyclerHeadersAdapter adapter, OrientationProvider orientationProvider,
+    private StickyRecyclerHeadersDecoration(StickyRecyclerHeadersAdapter<VH> adapter, OrientationProvider orientationProvider,
                                             DimensionCalculator dimensionCalculator, ItemVisibilityAdapter visibilityAdapter) {
         this(adapter, orientationProvider, dimensionCalculator, new HeaderRenderer(orientationProvider),
-                new HeaderViewCache(adapter, orientationProvider), visibilityAdapter);
+                new HeaderViewCache<>(adapter, orientationProvider), visibilityAdapter);
     }
 
-    private StickyRecyclerHeadersDecoration(StickyRecyclerHeadersAdapter adapter, OrientationProvider orientationProvider,
-                                            DimensionCalculator dimensionCalculator, HeaderRenderer headerRenderer, HeaderProvider headerProvider, ItemVisibilityAdapter visibilityAdapter) {
+    private StickyRecyclerHeadersDecoration(StickyRecyclerHeadersAdapter<VH> adapter, OrientationProvider orientationProvider,
+                                            DimensionCalculator dimensionCalculator, HeaderRenderer headerRenderer,
+                                            HeaderProvider headerProvider, ItemVisibilityAdapter visibilityAdapter) {
         this(adapter, headerRenderer, orientationProvider, dimensionCalculator, headerProvider,
-                new HeaderPositionCalculator(adapter, headerProvider, orientationProvider,
-                        dimensionCalculator), visibilityAdapter);
+                new HeaderPositionCalculator<>(adapter, headerProvider, orientationProvider, dimensionCalculator), visibilityAdapter);
     }
 
-    private StickyRecyclerHeadersDecoration(StickyRecyclerHeadersAdapter adapter, HeaderRenderer headerRenderer,
+    private StickyRecyclerHeadersDecoration(StickyRecyclerHeadersAdapter<VH> adapter, HeaderRenderer headerRenderer,
                                             OrientationProvider orientationProvider, DimensionCalculator dimensionCalculator, HeaderProvider headerProvider,
-                                            HeaderPositionCalculator headerPositionCalculator, ItemVisibilityAdapter visibilityAdapter) {
+                                            HeaderPositionCalculator<VH> headerPositionCalculator, ItemVisibilityAdapter visibilityAdapter) {
         mAdapter = adapter;
         mHeaderProvider = headerProvider;
         mOrientationProvider = orientationProvider;

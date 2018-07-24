@@ -3,6 +3,7 @@ package cn.sswukang.library.adapter.sticky;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -14,7 +15,7 @@ import cn.sswukang.library.lib.sticky_header.sticky.StickyRecyclerHeadersAdapter
 
 
 /**
- * 粘性头部适配器。(DataBinding模式)
+ * 粘性头部适配器(DataBinding模式)
  *
  * @param <T>  数据类型
  * @param <SB> 粘性头部布局绑定类
@@ -47,7 +48,7 @@ public abstract class StickyHeaderBindAdapter<T, SB extends ViewDataBinding, B e
      */
     @Override
     public final int getItemCount() {
-        return super.getItemCount();
+        return super.getDataSize();
     }
 
     @Override
@@ -55,7 +56,6 @@ public abstract class StickyHeaderBindAdapter<T, SB extends ViewDataBinding, B e
         return getHeaderId(position, getDataItem(position));
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public final BaseBindViewHolder<SB> onCreateHeaderViewHolder(ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
@@ -95,7 +95,7 @@ public abstract class StickyHeaderBindAdapter<T, SB extends ViewDataBinding, B e
      * @param t        position 对应的对象
      * @return header id {@link StickyRecyclerHeadersAdapter#getHeaderId(int)}
      */
-    public abstract long getHeaderId(int position, T t);
+    public abstract long getHeaderId(int position, @Nullable T t);
 
     /**
      * 填充粘性头部显示的内容
@@ -104,5 +104,5 @@ public abstract class StickyHeaderBindAdapter<T, SB extends ViewDataBinding, B e
      * @param t        header 对象数据封装
      * @param binding  {@link SB}
      */
-    public abstract void convertHeader(int position, T t, SB binding);
+    public abstract void convertHeader(int position, @Nullable T t, SB binding);
 }

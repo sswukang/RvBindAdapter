@@ -10,13 +10,12 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
 /**
- * Activity基类
+ * Activity 基类
  *
  * @author sswukang on 2017/2/21 10:36
  * @version 1.0
  */
 public abstract class BaseActivity<B extends ViewDataBinding, M extends BaseActivityViewModel> extends AppCompatActivity {
-
     // 视图绑定对象
     private B mDataBinding;
     // ViewModel模型对象

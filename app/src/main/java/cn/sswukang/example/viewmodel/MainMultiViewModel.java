@@ -6,18 +6,18 @@ import java.util.List;
 import java.util.Random;
 
 import cn.sswukang.example.base.BaseFragmentViewModel;
-import cn.sswukang.example.databinding.MainMultiFragmentBinding;
+import cn.sswukang.example.databinding.FragmentMainMultiBinding;
 import cn.sswukang.example.manager.CountryManager;
 import cn.sswukang.example.model.Country;
 import cn.sswukang.example.view.MainMultiFragment;
 
 /**
- * Main Multi Fragment ViewModel
+ * Multi Fragment ViewModel
  *
  * @author sswukang on 2017/3/1 14:56
  * @version 1.0
  */
-public class MainMultiViewModel extends BaseFragmentViewModel<MainMultiFragment, MainMultiFragmentBinding> {
+public class MainMultiViewModel extends BaseFragmentViewModel<MainMultiFragment, FragmentMainMultiBinding> {
     @Override
     public void asc() {
         // Country 排序
